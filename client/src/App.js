@@ -2,7 +2,7 @@ import React from "react";
 import "./styles/index.scss";
 
 function App() {
-  return <p>blabla</p>;
+  return <></>;
 }
 
 export default App;
