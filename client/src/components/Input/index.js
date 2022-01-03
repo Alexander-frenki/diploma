@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import classnames from "classnames";
 import styles from "./index.module.scss";
 
-function Input({
+export function Input({
   value,
   name,
   type,
@@ -46,5 +46,3 @@ Input.propTypes = {
   onBlur: PropTypes.func,
   onFocus: PropTypes.func,
 };
-
-export default Input;
