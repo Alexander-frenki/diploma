@@ -1,6 +1,6 @@
 import React from "react";
-import { Box, Container } from "@mui/material";
-import { Logout, ThemeSwitcher } from "..";
+import { Container } from "@mui/material";
+import { HeaderNavigation } from "./HeaderNavigation";
 
 const LOGO = (
   <svg
@@ -40,10 +40,7 @@ export function Header() {
       }}
     >
       {LOGO}
-      <Box>
-        <ThemeSwitcher />
-        <Logout />
-      </Box>
+      <HeaderNavigation />
     </Container>
   );
 }

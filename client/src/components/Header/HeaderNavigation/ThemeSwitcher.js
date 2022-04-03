@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
-import { alpha, IconButton } from "@mui/material";
+import PropTypes from "prop-types";
+import { IconButton } from "@mui/material";
 import LightModeOutlined from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlined from "@mui/icons-material/DarkModeOutlined";
-import { ThemeContext } from "..";
+import { ThemeContext } from "../..";
 
-export function ThemeSwitcher() {
+export function ThemeSwitcherIcon({ styles }) {
   const { theme, setTheme } = useContext(ThemeContext);
 
   function onThemeChange() {
@@ -16,14 +17,12 @@ export function ThemeSwitcher() {
     theme === "dark" ? <LightModeOutlined /> : <DarkModeOutlined />;
 
   return (
-    <IconButton
-      sx={{
-        border: (theme) =>
-          `1px solid ${alpha(theme.palette.primary.main, 0.5)}`,
-      }}
-      onClick={onThemeChange}
-    >
+    <IconButton sx={styles} onClick={onThemeChange}>
       {themeIcon}
     </IconButton>
   );
 }
+
+ThemeSwitcherIcon.propTypes = {
+  styles: PropTypes.object,
+};
