@@ -9,7 +9,7 @@ import {
 import { useSetRecoilState } from "recoil";
 import { userSelector } from "../recoil";
 import { useLoader } from "../hooks";
-import { Home, SignIn, SignUp, UserActivation } from "../pages";
+import { Home, SignIn, SignUp, UserActivation, UserSettings } from "../pages";
 import { checkAuth } from "../services";
 
 export const ROUTES = {
@@ -19,12 +19,12 @@ export const ROUTES = {
     isProtected: true,
   },
   signIn: {
-    pathname: "/signin",
+    pathname: "/sign-in",
     Component: SignIn,
     isProtected: false,
   },
   signOut: {
-    pathname: "/signup",
+    pathname: "/sign-up",
     Component: SignUp,
     isProtected: false,
   },
@@ -32,6 +32,11 @@ export const ROUTES = {
     pathname: "/activation",
     Component: UserActivation,
     isProtected: false,
+  },
+  userSettings: {
+    pathname: "/user-settings",
+    Component: UserSettings,
+    isProtected: true,
   },
 };
 
@@ -52,11 +57,7 @@ export function RouterSwitch() {
         const { user, accessToken } = await checkAuth();
         localStorage.setItem("token", accessToken);
         setUser(user);
-        if (user.isActivated) {
-          navigate(ROUTES.home.pathname);
-        } else {
-          navigate(ROUTES.userActivation.pathname);
-        }
+        if (!user.isActivated) navigate(ROUTES.userActivation.pathname);
       } catch (error) {
         !isEnterPath && navigate(ROUTES.signIn.pathname);
       } finally {
