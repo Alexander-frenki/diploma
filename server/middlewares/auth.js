@@ -1,7 +1,7 @@
-const ApiError = require("../exceptions/api-error");
-const tokenService = require("../service/token-service");
+import { ApiError } from "../exceptions/apiError";
+import { validateAccessToken } from "../service/token";
 
-module.exports = function (req, res, next) {
+function authMiddleware(req, res, next) {
   try {
     const authorizationHeader = req.headers.authorization;
     if (!authorizationHeader) {
@@ -13,7 +13,7 @@ module.exports = function (req, res, next) {
       return next(ApiError.UnauthorizedError());
     }
 
-    const userData = tokenService.validateAccessToken(accessToken);
+    const userData = validateAccessToken(accessToken);
     if (!userData) {
       return next(ApiError.UnauthorizedError());
     }
@@ -23,4 +23,6 @@ module.exports = function (req, res, next) {
   } catch (e) {
     return next(ApiError.UnauthorizedError());
   }
-};
+}
+
+export { authMiddleware };

@@ -1,10 +1,12 @@
-require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
-const cookieParser = require("cookie-parser");
-const mongoose = require("mongoose");
-const router = require("./router/index");
-const errorMiddleware = require("./middlewares/error-middleware");
+import dotenv from "dotenv";
+import express from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import mongoose from "mongoose";
+import { router } from "./router/index.js";
+import { errorMiddleware } from "./middlewares/error.js";
+
+dotenv.config();
 
 const PORT = process.env.PORT || 5000;
 const app = express();

@@ -1,8 +1,16 @@
-const Router = require("express").Router;
-const userController = require("../controllers/user-controller");
+import { Router } from "express";
+import { body } from "express-validator";
+import {
+  activate,
+  login,
+  logout,
+  refresh,
+  registration,
+} from "../controllers/user.js";
+// import { authMiddleware } from "../middlewares/auth";
+// import { carController } from "../controllers/car";
+
 const router = new Router();
-const { body } = require("express-validator");
-const authMiddleware = require("../middlewares/auth-middleware");
 
 router.post(
   "/registration",
@@ -10,12 +18,19 @@ router.post(
   body("password").isLength({ min: 8, max: 255 }),
   body("firstName").isLength({ min: 2, max: 255 }),
   body("lastName").isLength({ min: 2, max: 255 }),
-  userController.registration
+  registration
 );
-router.post("/login", userController.login);
-router.post("/logout", userController.logout);
-router.get("/activate/:link", userController.activate);
-router.get("/refresh", userController.refresh);
-router.get("/users", authMiddleware, userController.getUsers);
+router.post(
+  "/login",
+  body("email").isEmail().isLength({ max: 255 }),
+  body("password").isLength({ min: 8, max: 255 }),
+  login
+);
+router.post("/logout", logout);
+router.get("/activate/:link", activate);
+router.get("/refresh", refresh);
+// router.get("/users", authMiddleware, userController.getUsers);
 
-module.exports = router;
+// router.post("/car-info", authMiddleware, carController.getCarInfo);
+
+export { router };
