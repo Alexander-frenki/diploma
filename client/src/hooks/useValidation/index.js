@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import { string, object, ref } from "yup";
 import {
+  CAR_NUMBER_REGEX,
+  CAR_VIN_REGEX,
   EMAIL_REGEX,
   MAX_CHARS,
   PASSWORD_MIN_LENGTH,
@@ -31,6 +33,12 @@ const LAST_NAME_SCHEMA = string()
   .required("Поле обов’язкове для заповнення")
   .max(MAX_CHARS)
   .matches(USER_DATA_REGEX, "Будь ласка, введіть своє прізвище");
+const CAR_NUMBER_SCHEMA = string()
+  .required("Поле обов’язкове для заповнення")
+  .matches(CAR_NUMBER_REGEX, "Некоректний формат номеру автомобіля");
+const CAR_VIN_SCHEMA = string()
+  .required("Поле обов’язкове для заповнення")
+  .matches(CAR_VIN_REGEX, "Некоректний формат VIN коду автомобіля");
 
 const SCHEMAS = {
   email: EMAIL_SCHEMA,
@@ -38,6 +46,8 @@ const SCHEMAS = {
   firstName: FIRST_NAME_SCHEMA,
   lastName: LAST_NAME_SCHEMA,
   repeatPassword: REPEAT_PASSWORD_SCHEMA,
+  carNumber: CAR_NUMBER_SCHEMA,
+  carVin: CAR_VIN_SCHEMA,
 };
 
 export function useValidation(fields) {

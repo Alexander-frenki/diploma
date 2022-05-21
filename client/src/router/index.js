@@ -18,6 +18,11 @@ export const ROUTES = {
     Component: Home,
     isProtected: true,
   },
+  homeCategory: {
+    pathname: "/:category",
+    Component: Home,
+    isProtected: true,
+  },
   signIn: {
     pathname: "/sign-in",
     Component: SignIn,
@@ -58,6 +63,7 @@ export function RouterSwitch() {
         localStorage.setItem("token", accessToken);
         setUser(user);
         if (!user.isActivated) navigate(ROUTES.userActivation.pathname);
+        if (isEnterPath) navigate(ROUTES.home.pathname);
       } catch (error) {
         !isEnterPath && navigate(ROUTES.signIn.pathname);
       } finally {

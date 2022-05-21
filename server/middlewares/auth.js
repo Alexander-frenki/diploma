@@ -1,5 +1,5 @@
-import { ApiError } from "../exceptions/apiError";
-import { validateAccessToken } from "../service/token";
+import { ApiError } from "../exceptions/apiError.js";
+import { validateAccessToken } from "../service/token.js";
 
 function authMiddleware(req, res, next) {
   try {

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { createTheme, ThemeProvider } from "@mui/material";
 
+const alertSuccessColor = "#00b248";
+
 const COMPONENT_OVERRIDES = {
   MuiIconButton: {
     styleOverrides: {
@@ -12,6 +14,27 @@ const COMPONENT_OVERRIDES = {
     defaultProps: {
       size: "small",
       color: "primary",
+    },
+  },
+  MuiAlert: {
+    styleOverrides: {
+      standardSuccess: {
+        backgroundColor: alertSuccessColor,
+        color: "#fff",
+        "& .MuiAlert-icon": {
+          color: "#fff",
+        },
+      },
+    },
+  },
+  MuiCssBaseline: {
+    styleOverrides: {
+      body: {
+        "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
+          width: 0,
+          height: 0,
+        },
+      },
     },
   },
 };
@@ -35,6 +58,8 @@ const themes = {
       mode: "light",
       // ...PALLETE_COLORS,
     },
+    contentBackground: "#e3e3e3",
+    borderColor: "#BABABA",
     components: COMPONENT_OVERRIDES,
   }),
   dark: createTheme({
@@ -42,9 +67,11 @@ const themes = {
       mode: "dark",
       // ...PALLETE_COLORS,
       background: {
-        default: "#000",
+        // default: "#000",
       },
     },
+    contentBackground: "#000",
+    borderColor: "#666",
     components: COMPONENT_OVERRIDES,
   }),
 };

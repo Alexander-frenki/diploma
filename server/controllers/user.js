@@ -2,7 +2,6 @@ import { validationResult } from "express-validator";
 import { ApiError } from "../exceptions/apiError.js";
 import {
   activateUser,
-  // getAllUsers,
   loginUser,
   logoutUser,
   refreshUser,
@@ -80,14 +79,5 @@ async function refresh(req, res, next) {
     next(e);
   }
 }
-
-// async function getUsers(req, res, next) {
-//   try {
-//     const users = await getAllUsers();
-//     return res.json(users);
-//   } catch (e) {
-//     next(e);
-//   }
-// }
 
 export { registration, login, logout, activate, refresh };

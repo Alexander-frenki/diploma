@@ -14,18 +14,18 @@ import { ApiError } from "../exceptions/apiError.js";
 function parseUserData({
   _id: id,
   email,
-  password,
   firstName,
   lastName,
   isActivated,
+  cars,
 }) {
   return {
     id,
     email,
-    password,
     firstName,
     lastName,
     isActivated,
+    cars,
   };
 }
 
@@ -104,16 +104,4 @@ async function refreshUser(refreshToken) {
   return { ...tokens, user: userDto };
 }
 
-async function getAllUsers() {
-  const users = await UserModel.find();
-  return users;
-}
-
-export {
-  registrationUser,
-  activateUser,
-  loginUser,
-  logoutUser,
-  refreshUser,
-  getAllUsers,
-};
+export { registrationUser, activateUser, loginUser, logoutUser, refreshUser };

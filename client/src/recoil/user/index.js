@@ -8,6 +8,7 @@ export const userState = atom({
     lastName: "",
     isActivated: false,
     isLoggedIn: false,
+    cars: [],
   },
 });
 

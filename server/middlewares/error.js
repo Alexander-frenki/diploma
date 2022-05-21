@@ -2,13 +2,21 @@ import { ApiError } from "../exceptions/apiError.js";
 
 function errorMiddleware(err, req, res, next) {
   console.log(err);
+  if (err?.code === 404) {
+    res.sendStatus(404);
+  }
+
+  if (err?.code === 424) {
+    return res.send(err?.mock);
+  }
+
   if (err instanceof ApiError) {
     return res
       .status(err.status)
       .json({ message: err.message, errors: err.errors });
   }
   next();
-  return res.status(500).json({ message: "Непредвиденная ошибка" });
+  return res.sendStatus(500);
 }
 
 export { errorMiddleware };

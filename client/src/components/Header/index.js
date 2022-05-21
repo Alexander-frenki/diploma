@@ -37,6 +37,7 @@ export function Header() {
         justifyContent: "space-between",
         alignItems: "center",
         p: 1,
+        bgcolor: (theme) => theme.contentBackground,
       }}
     >
       {LOGO}

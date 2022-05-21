@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState, useResetRecoilState } from "recoil";
+import { useRecoilValue, useResetRecoilState } from "recoil";
 import { useLoader } from "../../../hooks";
 import { userState } from "../../../recoil";
 import { IconButton } from "@mui/material";
@@ -11,7 +11,7 @@ import { ROUTES } from "../../../router";
 
 export function LogoutIcon({ styles }) {
   const navigate = useNavigate();
-  const [{ isLoggedIn }] = useRecoilState(userState);
+  const { isLoggedIn } = useRecoilValue(userState);
   const resetUser = useResetRecoilState(userState);
   const { addAction, removeAction } = useLoader();
 
