@@ -6,6 +6,7 @@ import {
   getCarInfo,
   updateCars,
 } from "../controllers/car.js";
+import { getCompanyInfo, searchCompany } from "../controllers/company.js";
 import {
   activate,
   login,
@@ -25,12 +26,14 @@ router.post(
   body("lastName").isLength({ min: 2, max: 255 }),
   registration
 );
+
 router.post(
   "/login",
   body("email").isEmail().isLength({ max: 255 }),
   body("password").isLength({ min: 8, max: 255 }),
   login
 );
+
 router.post("/logout", logout);
 router.get("/activate/:link", activate);
 router.get("/refresh", refresh);
@@ -39,5 +42,8 @@ router.post("/car-info", authMiddleware, getCarInfo);
 router.post("/car-update", authMiddleware, updateCars);
 router.post("/car-external-info", authMiddleware, findExternalCarInfo);
 router.post("/car-fines", authMiddleware, getCarFines);
+
+router.post("/company-info", authMiddleware, getCompanyInfo);
+router.post("/search-company", authMiddleware, searchCompany);
 
 export { router };

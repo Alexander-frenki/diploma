@@ -5,9 +5,19 @@ import { useForm } from "react-hook-form";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../../../recoil";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Box, TextField, Typography, styled } from "@mui/material";
+import {
+  Button,
+  Box,
+  TextField,
+  Typography,
+  styled,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+} from "@mui/material";
 import AddBox from "@mui/icons-material/AddBox";
 import Pageview from "@mui/icons-material/Pageview";
+import ExpandMore from "@mui/icons-material/ExpandMore";
 import { getCarInfo, updateUserCars } from "../../../../services/api/car";
 import {
   BackButton,
@@ -100,38 +110,69 @@ export function CarInfo() {
           </Typography>
 
           {carsByNumber.map((car, index) => {
-            const [, vin] = car.find(([key]) => key === "VIN");
+            const {
+              number,
+              brand,
+              model,
+              color,
+              makeYear,
+              lastDate,
+              kind,
+              fuel,
+              vin,
+            } = car;
+
             const { carNumber } = getValues();
             return (
-              <Box sx={{ mb: 4 }} key={car}>
-                <Table data={car} />
-                {index === 0 && !cars.includes(carNumber) && (
-                  <CtaButtonContainer>
-                    <Button
-                      variant="contained"
-                      startIcon={<AddBox />}
-                      onClick={() => onAddCar(carNumber)}
-                    >
-                      Додати в мій автопарк
-                    </Button>
-                  </CtaButtonContainer>
-                )}
-                {vin && (
-                  <CtaButtonContainer>
-                    <Button
-                      onClick={() =>
-                        navigate(CATEGORIES_PATHS.foreignCarInfo, {
-                          state: { vin },
-                        })
-                      }
-                      variant="contained"
-                      startIcon={<Pageview />}
-                    >
-                      Пошук на іноземних площадках
-                    </Button>
-                  </CtaButtonContainer>
-                )}
-              </Box>
+              <Accordion
+                defaultExpanded={carsByNumber.length === 1}
+                key={`${brand}/${model}/${lastDate}`}
+              >
+                <AccordionSummary expandIcon={<ExpandMore />}>
+                  <Typography>
+                    {brand} {model}
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Table
+                    data={[
+                      ["Номер", number],
+                      ["Колір", color],
+                      ["Рік випуску", makeYear],
+                      ["Дата реєстрації", lastDate.split(" ")[0]],
+                      ["Тип", kind],
+                      ["Пальне", fuel],
+                      ["VIN", vin],
+                    ]}
+                  />
+                  {index === 0 && !cars.includes(carNumber) && (
+                    <CtaButtonContainer>
+                      <Button
+                        variant="contained"
+                        startIcon={<AddBox />}
+                        onClick={() => onAddCar(carNumber)}
+                      >
+                        Додати в мій автопарк
+                      </Button>
+                    </CtaButtonContainer>
+                  )}
+                  {vin && (
+                    <CtaButtonContainer>
+                      <Button
+                        onClick={() =>
+                          navigate(CATEGORIES_PATHS.foreignCarInfo, {
+                            state: { vin },
+                          })
+                        }
+                        variant="contained"
+                        startIcon={<Pageview />}
+                      >
+                        Пошук на іноземних площадках
+                      </Button>
+                    </CtaButtonContainer>
+                  )}
+                </AccordionDetails>
+              </Accordion>
             );
           })}
         </>

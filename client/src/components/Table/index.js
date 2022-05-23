@@ -9,20 +9,35 @@ const TableItem = styled(Typography)(({ theme }) => ({
   borderBottom: `1px solid ${theme.borderColor}`,
   paddingBottom: theme.spacing(0.5),
   paddingTop: theme.spacing(0.5),
+  fontSize: 14,
   "& span": {
+    marginLeft: theme.spacing(1),
     textAlign: "right",
+    whiteSpace: "break-spaces",
   },
 }));
+
+function renderItem(title, detail) {
+  if (typeof detail === "string" || typeof detail === "number") {
+    return (
+      <TableItem key={title}>
+        {title} <span>{detail}</span>
+      </TableItem>
+    );
+  }
+
+  if (Array.isArray(detail)) {
+    return renderItem(title, detail.join("\r\n"));
+  }
+}
 
 export function Table({ sx, header, data }) {
   return (
     <Box sx={sx}>
       {header && header}
-      {data.map(([title, detail]) => (
-        <TableItem key={title}>
-          {title} <span>{detail}</span>
-        </TableItem>
-      ))}
+      {data.map(([title, detail]) => {
+        return renderItem(title, detail);
+      })}
     </Box>
   );
 }

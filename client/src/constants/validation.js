@@ -7,3 +7,5 @@ export const USER_DATA_REGEX = /^[А-ЯІЄЇҐа-яієїґ'][А-ЯІЄЇҐа-�
 export const CAR_NUMBER_REGEX =
   /^[авеікмнорстхАВЕІКМНОРСТХabeikmhopctxABEIKMHOPCTX]{2}[\d]{4}[авеікмнорстхАВЕІКМНОРСТХabeikmhopctxABEIKMHOPCTX]{2}$/;
 export const CAR_VIN_REGEX = /^([a-zA-Z0-9]){17}$/;
+export const COMPANY_CODE_REGEX = /^([0-9]){8}$/;
+export const COMPANY_NAME_REGEX = /^[А-ЯІЄЇҐа-яієїґ'][А-ЯІЄЇҐа-яієїґ'\- ]+$/;

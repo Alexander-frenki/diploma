@@ -23,6 +23,11 @@ export const ROUTES = {
     Component: Home,
     isProtected: true,
   },
+  homeCategoryWithParam: {
+    pathname: "/:category/:id",
+    Component: Home,
+    isProtected: true,
+  },
   signIn: {
     pathname: "/sign-in",
     Component: SignIn,

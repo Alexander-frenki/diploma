@@ -3,74 +3,6 @@ import { carFinesMock, carInfoMock } from "../mocks/car.js";
 import { parseBidcarsData } from "../service/bidcars.js";
 import { updateUserCars } from "../service/car.js";
 
-function parseCarData({ items }) {
-  return items.map(
-    ({ number, brand, model, color, makeYear, lastDate, kind, fuel, vin }) => [
-      ["Номер", number],
-      ["Марка", brand],
-      ["Модель", model],
-      ["Колір", color],
-      ["Рік випуску", makeYear],
-      ["Дата реєстрації", lastDate.split(" ")[0]],
-      ["Тип", kind],
-      ["Пальне", fuel],
-      ["VIN", vin],
-    ]
-  );
-}
-
-function parseFineData({ items }) {
-  return items.map(
-    ({
-      fineStatus,
-      docId,
-      department,
-      fab,
-      kupap,
-      region,
-      district,
-      street,
-      send,
-      roadKm,
-      consider,
-      decision,
-      penalty,
-      sumPenalty,
-      paidPenalty,
-      pdd,
-      dperpetration,
-      dpaid,
-      nprotocol,
-      sprotocol,
-      status,
-      mark,
-    }) => [
-      ["Статус штрафу", fineStatus],
-      ["Ідентифікатор штрафу", docId],
-      ["Департамент поліції", department],
-      ["Фабула правопорушення", fab],
-      ["Порушена стаття КУПАП", kupap],
-      ["Область", region],
-      ["Район", district],
-      ["Вулиця", street],
-      ["Куди направлений протокол для розгляду", send],
-      ["Кілометр дороги, де створено правопорушення", roadKm],
-      ["Хто розглянув", consider],
-      ["Рішення", decision],
-      ["Вид покарання", penalty],
-      ["Сума штрафу", sumPenalty],
-      ["Сплачена сума штрафу", paidPenalty],
-      ["Порушена стаття правил дорожнього руху", pdd],
-      ["Дата вчинення правопорушення", dperpetration],
-      ["Дата сплати", dpaid],
-      ["Номер протоколу", nprotocol],
-      ["Серія протоколу", sprotocol],
-      ["Статус", status],
-      ["Примітки до протоколу", mark],
-    ]
-  );
-}
-
 async function getCarInfo(req, res, next) {
   try {
     const { carNumber } = req.body;
@@ -82,11 +14,11 @@ async function getCarInfo(req, res, next) {
     if (json.status === "error") {
       throw {
         code: json.code,
-        mock: parseCarData(carInfoMock),
+        mock: carInfoMock,
       };
     }
 
-    return res.send(parseCarData(json.data));
+    return res.send(json.data.items);
   } catch (error) {
     next(error);
   }
@@ -104,11 +36,11 @@ async function getCarFines(req, res, next) {
     if (json.status === "error") {
       throw {
         code: json.code,
-        mock: parseFineData(carFinesMock),
+        mock: carFinesMock,
       };
     }
 
-    return res.send(parseFineData(json.data));
+    return res.send(json.data.items);
   } catch (error) {
     next(error);
   }

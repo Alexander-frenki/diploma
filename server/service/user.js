@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { v4 } from "uuid";
 import { UserModel } from "../models/user.js";
-import { sendActivationMail } from "./mail.js";
+// import { sendActivationMail } from "./mail.js";
 import {
   findToken,
   generateTokens,
@@ -45,11 +45,12 @@ async function registrationUser(email, password, firstName, lastName) {
     firstName,
     lastName,
     activationLink,
+    isActivated: true,
   });
-  await sendActivationMail(
-    email,
-    `${process.env.API_URL}/api/activate/${activationLink}`
-  );
+  // await sendActivationMail(
+  //   email,
+  //   `${process.env.API_URL}/api/activate/${activationLink}`
+  // );
   const userDto = parseUserData(user); // id, email, isActivated
   const tokens = generateTokens({ ...userDto });
   await saveToken(userDto.id, tokens.refreshToken);

@@ -3,6 +3,8 @@ import { string, object, ref } from "yup";
 import {
   CAR_NUMBER_REGEX,
   CAR_VIN_REGEX,
+  COMPANY_CODE_REGEX,
+  COMPANY_NAME_REGEX,
   EMAIL_REGEX,
   MAX_CHARS,
   PASSWORD_MIN_LENGTH,
@@ -31,7 +33,7 @@ const FIRST_NAME_SCHEMA = string()
   .matches(USER_DATA_REGEX, "Будь ласка, введіть своє ім'я");
 const LAST_NAME_SCHEMA = string()
   .required("Поле обов’язкове для заповнення")
-  .max(MAX_CHARS)
+  .max(MAX_CHARS, `Прізвище має містити не більше ${MAX_CHARS} символів`)
   .matches(USER_DATA_REGEX, "Будь ласка, введіть своє прізвище");
 const CAR_NUMBER_SCHEMA = string()
   .required("Поле обов’язкове для заповнення")
@@ -39,6 +41,13 @@ const CAR_NUMBER_SCHEMA = string()
 const CAR_VIN_SCHEMA = string()
   .required("Поле обов’язкове для заповнення")
   .matches(CAR_VIN_REGEX, "Некоректний формат VIN коду автомобіля");
+const COMPANY_CODE = string()
+  .required("Поле обов’язкове для заповнення")
+  .matches(COMPANY_CODE_REGEX, "Некоректний формат ЄДРПОУ коду компанії");
+const COMPANY_NAME = string()
+  .required("Поле обов’язкове для заповнення")
+  .max(MAX_CHARS, `Назва компанії має містити не більше ${MAX_CHARS} символів`)
+  .matches(COMPANY_NAME_REGEX, "Некоректний формат назви компанії");
 
 const SCHEMAS = {
   email: EMAIL_SCHEMA,
@@ -48,6 +57,8 @@ const SCHEMAS = {
   repeatPassword: REPEAT_PASSWORD_SCHEMA,
   carNumber: CAR_NUMBER_SCHEMA,
   carVin: CAR_VIN_SCHEMA,
+  companyCode: COMPANY_CODE,
+  companyName: COMPANY_NAME,
 };
 
 export function useValidation(fields) {

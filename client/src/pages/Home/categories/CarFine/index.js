@@ -2,7 +2,16 @@ import React, { useState } from "react";
 import { useFetch, useValidation } from "../../../../hooks";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Box, TextField, Typography } from "@mui/material";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  TextField,
+  Typography,
+} from "@mui/material";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import CheckCircle from "@mui/icons-material/CheckCircle";
+import Report from "@mui/icons-material/Report";
 import {
   BackButton,
   LinearLoader,
@@ -10,6 +19,7 @@ import {
   Table,
 } from "../../../../components";
 import { getCarFines } from "../../../../services";
+import { format } from "../../../../utils";
 
 const FORM_DATA = {
   carNumber: (register, errors) => ({
@@ -78,11 +88,79 @@ export function CarFine() {
             Ось що нам вдалось знайти:
           </Typography>
 
-          {carFines.map((car) => {
+          {carFines.map((fine) => {
+            const {
+              fineStatus,
+              docId,
+              department,
+              fab,
+              kupap,
+              region,
+              district,
+              street,
+              send,
+              roadKm,
+              consider,
+              decision,
+              penalty,
+              sumPenalty,
+              paidPenalty,
+              brand,
+              pdd,
+              dperpetration,
+              dpaid,
+              nprotocol,
+              sprotocol,
+              status,
+              mark,
+            } = fine;
+            const statusIcon = (sx) =>
+              fineStatus === "paid" ? (
+                <CheckCircle sx={sx} color="success" />
+              ) : (
+                <Report sx={sx} color="error" />
+              );
             return (
-              <Box sx={{ mb: 4 }} key={car}>
-                <Table data={car} />
-              </Box>
+              <Accordion
+                key={docId}
+                defaultExpanded={carFines.length === 1}
+                sx={{ mb: 2 }}
+              >
+                <AccordionSummary expandIcon={<ExpandMore />}>
+                  {statusIcon({ mr: 1 })}
+                  <Typography>
+                    {brand} - {format(sumPenalty)}
+                  </Typography>
+                </AccordionSummary>
+
+                <AccordionDetails>
+                  <Table
+                    data={[
+                      ["Ідентифікатор штрафу", docId],
+                      ["Департамент поліції", department],
+                      ["Фабула правопорушення", fab],
+                      ["Порушена стаття КУПАП", kupap],
+                      ["Область", region],
+                      ["Район", district],
+                      ["Вулиця", street],
+                      ["Куди направлений протокол для розгляду", send],
+                      ["Кілометр дороги, де створено правопорушення", roadKm],
+                      ["Хто розглянув", consider],
+                      ["Рішення", decision],
+                      ["Вид покарання", penalty],
+                      ["Сума штрафу", format(sumPenalty)],
+                      ["Сплачена сума штрафу", format(paidPenalty)],
+                      ["Порушена стаття правил дорожнього руху", pdd],
+                      ["Дата вчинення правопорушення", dperpetration],
+                      ["Дата сплати", dpaid],
+                      ["Номер протоколу", nprotocol],
+                      ["Серія протоколу", sprotocol],
+                      ["Статус", status],
+                      ["Примітки до протоколу", mark],
+                    ]}
+                  />
+                </AccordionDetails>
+              </Accordion>
             );
           })}
         </>
