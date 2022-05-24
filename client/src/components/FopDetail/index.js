@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import {
   Accordion,
@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { Table } from "../Table";
+import { format } from "../../utils";
 
 export function FopDetail({
   registry: {
@@ -24,8 +25,16 @@ export function FopDetail({
     registrationDate,
     registrationNumber,
   },
+  factors = [],
 }) {
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const { vat, singletax, debt } = factors.reduce(
+    (acc, factor) => {
+      const { type } = factor;
+      return Object.keys(acc).includes(type) ? { ...acc, [type]: factor } : acc;
+    },
+    { vat: null, singletax: null, debt: null }
+  );
 
   function handleChange(panel) {
     return (event, isExpanded) => setExpanded(isExpanded ? panel : false);
@@ -62,8 +71,8 @@ export function FopDetail({
       </Accordion>
 
       <Accordion
-        expanded={expanded === "panel3"}
-        onChange={handleChange("panel3")}
+        expanded={expanded === "panel2"}
+        onChange={handleChange("panel2")}
       >
         <AccordionSummary expandIcon={<ExpandMore />}>
           Види діяльності
@@ -73,10 +82,87 @@ export function FopDetail({
           <Table data={[["Інші види діяльності", additionallyActivities]]} />
         </AccordionDetails>
       </Accordion>
+
+      {vat && (
+        <Accordion
+          expanded={expanded === "panel3"}
+          onChange={handleChange("panel3")}
+        >
+          <AccordionSummary expandIcon={<ExpandMore />}>ПДВ</AccordionSummary>
+          <AccordionDetails>
+            <Table
+              data={[
+                ["Текстова інформація щодо фактору", vat.text],
+                ["Номер свідоцтва", vat.number],
+                [
+                  "Статус платника ПДВ",
+                  vat.status === "active" ? "Активний" : "Не активний",
+                ],
+                ["Дата анулювання реєстрації", vat.dateCancellation],
+                ["Причина анулювання реєстрації", vat.reasonCancellation],
+                ["Підстава анулювання реєстраці", vat.agencyCancellation],
+                ["Дата активациї свідоцтва", vat.dateStart],
+                ["Дата оновлення у базі", vat.databaseDate],
+              ]}
+            />
+          </AccordionDetails>
+        </Accordion>
+      )}
+
+      {singletax && (
+        <Accordion
+          expanded={expanded === "panel4"}
+          onChange={handleChange("panel4")}
+        >
+          <AccordionSummary expandIcon={<ExpandMore />}>
+            Єдиний податок
+          </AccordionSummary>
+          <AccordionDetails>
+            <Table
+              data={[
+                ["Текстова інформація щодо фактору", singletax.text],
+                [
+                  "Стан єдиного податку",
+                  singletax.status === "active" ? "Активний" : "Не активний",
+                ],
+                ["Група єдиного податку", singletax.group],
+                ["Ставка єдиного податку", `${singletax.rate}%`],
+                [
+                  "Дата обрання або переходу на єдиний податок",
+                  singletax.dateStart,
+                ],
+                ["Дата втрати або ануляції єдиного податку", singletax.dateEnd],
+              ]}
+            />
+          </AccordionDetails>
+        </Accordion>
+      )}
+
+      {debt && (
+        <Accordion
+          expanded={expanded === "panel5"}
+          onChange={handleChange("panel5")}
+        >
+          <AccordionSummary expandIcon={<ExpandMore />}>
+            Податковий борг
+          </AccordionSummary>
+          <AccordionDetails>
+            <Table
+              data={[
+                ["Текстова інформація щодо фактору", debt.text],
+                ["Загальний податковий борг", format(debt.total)],
+                ["Місцевий податковий борг", format(debt.local)],
+                ["Державний податковий борг", format(debt.government)],
+              ]}
+            />
+          </AccordionDetails>
+        </Accordion>
+      )}
     </Box>
   );
 }
 
 FopDetail.propTypes = {
   registry: PropTypes.object,
+  factors: PropTypes.array,
 };
