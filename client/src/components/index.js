@@ -9,3 +9,4 @@ export * from "./BackButton";
 export * from "./Table";
 export * from "./LinearLoader";
 export * from "./CompanyDetail";
+export * from "./FopDetail";

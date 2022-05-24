@@ -7,6 +7,7 @@ import {
   updateCars,
 } from "../controllers/car.js";
 import { getCompanyInfo, searchCompany } from "../controllers/company.js";
+import { getFopInfo } from "../controllers/fop.js";
 import {
   activate,
   login,
@@ -45,5 +46,7 @@ router.post("/car-fines", authMiddleware, getCarFines);
 
 router.post("/company-info", authMiddleware, getCompanyInfo);
 router.post("/search-company", authMiddleware, searchCompany);
+
+router.post("/fop-info", authMiddleware, getFopInfo);
 
 export { router };

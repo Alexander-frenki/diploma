@@ -9,3 +9,4 @@ export const CAR_NUMBER_REGEX =
 export const CAR_VIN_REGEX = /^([a-zA-Z0-9]){17}$/;
 export const COMPANY_CODE_REGEX = /^([0-9]){8}$/;
 export const COMPANY_NAME_REGEX = /^[А-ЯІЄЇҐа-яієїґ'][А-ЯІЄЇҐа-яієїґ'\- ]+$/;
+export const FOP_CODE_REGEX = /^([0-9]){10}$/;

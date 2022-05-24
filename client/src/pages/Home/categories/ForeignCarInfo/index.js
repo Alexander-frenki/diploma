@@ -119,12 +119,15 @@ export function ForeignCarInfo() {
             </Slider>
           </Box>
 
-          <TableHeader>
-            <Typography>
+          <TableHeader variant="h6">
+            <Box>
               <AttachMoney />
               Ціна лоту
-            </Typography>
-            {externalCarInfo.price}
+            </Box>
+
+            <Box sx={{ marginLeft: "auto", marginRight: 0 }}>
+              {externalCarInfo.price}
+            </Box>
           </TableHeader>
 
           <Table

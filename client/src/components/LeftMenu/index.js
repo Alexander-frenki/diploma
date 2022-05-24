@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../recoil";
 import {
@@ -16,8 +16,8 @@ import Folder from "@mui/icons-material/Folder";
 import Paid from "@mui/icons-material/Paid";
 import Gavel from "@mui/icons-material/Gavel";
 import Receipt from "@mui/icons-material/Receipt";
-import MoneyOff from "@mui/icons-material/MoneyOff";
-import Search from "@mui/icons-material/Search";
+// import MoneyOff from "@mui/icons-material/MoneyOff";
+// import Search from "@mui/icons-material/Search";
 import Map from "@mui/icons-material/Map";
 import { CATEGORIES_PATHS } from "../../constants/categories";
 
@@ -70,19 +70,19 @@ const MENU_ITEMS = {
       },
     ],
   },
-  physical: {
-    title: "Фізичні особи",
-    items: [
-      {
-        text: "Заборгованість по аліментах",
-        Icon: MoneyOff,
-      },
-      {
-        text: "Пошук в базі людей в розшуку",
-        Icon: Search,
-      },
-    ],
-  },
+  // physical: {
+  //   title: "Фізичні особи",
+  //   items: [
+  //     {
+  //       text: "Заборгованість по аліментах",
+  //       Icon: MoneyOff,
+  //     },
+  //     {
+  //       text: "Пошук в базі людей в розшуку",
+  //       Icon: Search,
+  //     },
+  //   ],
+  // },
 };
 
 function UserInfo() {
@@ -107,6 +107,9 @@ function UserInfo() {
 }
 
 function Menu() {
+  const { pathname: currentPathname } = useLocation();
+  console.log(useLocation());
+
   const navigate = useNavigate();
   return (
     <MenuList
@@ -136,6 +139,10 @@ function Menu() {
               sx={{
                 borderRadius: 2,
                 py: 2,
+                bgcolor: (theme) =>
+                  currentPathname.includes(pathname)
+                    ? theme.palette.primary.dark
+                    : "transparent",
                 "&:hover": {
                   bgcolor: (theme) => theme.palette.primary.dark,
                 },

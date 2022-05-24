@@ -109,6 +109,7 @@ export function SignUp() {
       const { user, accessToken } = await registration(formData);
       localStorage.setItem("token", accessToken);
       setUser(user);
+      navigate(ROUTES.home.pathname);
     } catch (error) {
       console.log(error);
     } finally {

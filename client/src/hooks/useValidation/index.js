@@ -6,6 +6,7 @@ import {
   COMPANY_CODE_REGEX,
   COMPANY_NAME_REGEX,
   EMAIL_REGEX,
+  FOP_CODE_REGEX,
   MAX_CHARS,
   PASSWORD_MIN_LENGTH,
   USER_DATA_REGEX,
@@ -48,6 +49,9 @@ const COMPANY_NAME = string()
   .required("Поле обов’язкове для заповнення")
   .max(MAX_CHARS, `Назва компанії має містити не більше ${MAX_CHARS} символів`)
   .matches(COMPANY_NAME_REGEX, "Некоректний формат назви компанії");
+const FOP_CODE = string()
+  .required("Поле обов’язкове для заповнення")
+  .matches(FOP_CODE_REGEX, "Некоректний формат ІПН коду");
 
 const SCHEMAS = {
   email: EMAIL_SCHEMA,
@@ -59,6 +63,7 @@ const SCHEMAS = {
   carVin: CAR_VIN_SCHEMA,
   companyCode: COMPANY_CODE,
   companyName: COMPANY_NAME,
+  fopCode: FOP_CODE,
 };
 
 export function useValidation(fields) {
