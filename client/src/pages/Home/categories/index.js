@@ -3,3 +3,4 @@ export * from "./CarFine";
 export * from "./CompanyInfo";
 export * from "./FopInfo";
 export * from "./ForeignCarInfo";
+export * from "./CourtSearch";

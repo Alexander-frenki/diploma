@@ -9,7 +9,11 @@ export function SearchForm({
   onSubmit,
   register,
   errors,
+  watch,
   title,
+  buttonTitle,
+  buttonDisabled,
+  children,
 }) {
   return (
     <Grid
@@ -44,17 +48,30 @@ export function SearchForm({
         sx={{ mt: 1, width: 1 }}
       >
         {Object.values(formData).map((field) => {
-          const { Component, componentProps } = field(register, errors);
-          return <Component key={componentProps.id} {...componentProps} />;
+          const { Component, componentProps, items } = field(
+            register,
+            errors,
+            watch
+          );
+          return (
+            <Component
+              key={componentProps.id}
+              {...componentProps}
+              items={items}
+            />
+          );
         })}
         <Button
           type="submit"
           fullWidth
           variant="contained"
           sx={{ mt: 1, mb: 2 }}
+          disabled={buttonDisabled}
         >
-          Пошук
+          {buttonTitle ? buttonTitle : "Пошук"}
         </Button>
+
+        {children}
       </Box>
     </Grid>
   );
@@ -66,5 +83,9 @@ SearchForm.propTypes = {
   onSubmit: PropTypes.func,
   register: PropTypes.func,
   errors: PropTypes.object,
+  watch: PropTypes.func,
   title: PropTypes.string,
+  buttonTitle: PropTypes.string,
+  buttonDisabled: PropTypes.bool,
+  children: PropTypes.node,
 };

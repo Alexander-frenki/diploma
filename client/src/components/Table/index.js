@@ -29,6 +29,14 @@ function renderItem(title, detail) {
   if (Array.isArray(detail)) {
     return renderItem(title, detail.join("\r\n"));
   }
+
+  if (React.isValidElement(detail)) {
+    return (
+      <TableItem key={title}>
+        {title} {detail}
+      </TableItem>
+    );
+  }
 }
 
 export function Table({ sx, header, data }) {

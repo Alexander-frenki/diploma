@@ -9,7 +9,7 @@ class ApiError extends Error {
   }
 
   static UnauthorizedError() {
-    return new ApiError(401, "Пользователь не авторизован");
+    return new ApiError(401, "Користувач не авторизований");
   }
 
   static BadRequest(message, errors = []) {

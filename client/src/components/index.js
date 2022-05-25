@@ -11,3 +11,4 @@ export * from "./LinearLoader";
 export * from "./CompanyDetail";
 export * from "./FopDetail";
 export * from "./RussianDisclaimer";
+export * from "./CustomSelect";

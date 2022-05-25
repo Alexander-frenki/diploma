@@ -40,6 +40,13 @@ export function useFetch() {
           message: "От халепа, щось пішло не так, спробуйте будь ласка пізніше",
         });
       }
+
+      if (error.response.data.message) {
+        setAlert({
+          severity: "error",
+          message: error.response.data.message,
+        });
+      }
     } finally {
       setLoading(false);
     }

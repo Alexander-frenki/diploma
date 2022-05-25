@@ -6,6 +6,8 @@ import {
   logoutUser,
   refreshUser,
   registrationUser,
+  updateUserData,
+  updatePassword,
 } from "../service/user.js";
 
 async function registration(req, res, next) {
@@ -39,6 +41,24 @@ async function login(req, res, next) {
       maxAge: 30 * 24 * 60 * 60 * 1000,
       httpOnly: true,
     });
+    return res.json(userData);
+  } catch (e) {
+    next(e);
+  }
+}
+
+async function updateUser(req, res, next) {
+  try {
+    const userData = await updateUserData(req.body);
+    return res.json(userData);
+  } catch (e) {
+    next(e);
+  }
+}
+
+async function updateUserPassword(req, res, next) {
+  try {
+    const userData = await updatePassword(req.body);
     return res.json(userData);
   } catch (e) {
     next(e);
@@ -80,4 +100,12 @@ async function refresh(req, res, next) {
   }
 }
 
-export { registration, login, logout, activate, refresh };
+export {
+  registration,
+  login,
+  updateUser,
+  updateUserPassword,
+  logout,
+  activate,
+  refresh,
+};

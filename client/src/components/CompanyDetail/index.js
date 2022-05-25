@@ -35,7 +35,6 @@ export function CompanyDetail({
 }) {
   const [expanded, setExpanded] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
-  console.log(beneficiaries);
   const { vat, singletax, debt, wagedebt, audit, ruFounders } = factors.reduce(
     (acc, factor) =>
       Object.keys(acc).includes(factor.type)

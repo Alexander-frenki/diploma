@@ -6,6 +6,7 @@ import {
   CarFine,
   CarInfo,
   CompanyInfo,
+  CourtSearch,
   FopInfo,
   ForeignCarInfo,
 } from "./categories";
@@ -16,6 +17,7 @@ export const CATEGORY_COMPONENTS = {
   [CATEGORIES_PATHS.companyInfo]: CompanyInfo,
   [CATEGORIES_PATHS.fopInfo]: FopInfo,
   [CATEGORIES_PATHS.foreignCarInfo]: ForeignCarInfo,
+  [CATEGORIES_PATHS.courtSearch]: CourtSearch,
 };
 
 export function Home() {

@@ -63,10 +63,12 @@ const MENU_ITEMS = {
       {
         text: "Пошук судових рішень",
         Icon: Gavel,
+        pathname: CATEGORIES_PATHS.courtSearch,
       },
       {
         text: "Пошук судового документа",
         Icon: Receipt,
+        pathname: CATEGORIES_PATHS.courtDoc,
       },
     ],
   },
@@ -108,7 +110,6 @@ function UserInfo() {
 
 function Menu() {
   const { pathname: currentPathname } = useLocation();
-  console.log(useLocation());
 
   const navigate = useNavigate();
   return (

@@ -27,7 +27,7 @@ const REPEAT_PASSWORD_SCHEMA = string()
   .required("Поле обов’язкове для заповнення")
   .min(PASSWORD_MIN_LENGTH, "Пароль має містити не менше 8 символів")
   .max(MAX_CHARS, `Пароль має містити не більше ${MAX_CHARS} символів`)
-  .oneOf([ref("password")], "Паролі не збігаються");
+  .oneOf([ref("password"), ref("newPassword")], "Паролі не збігаються");
 const FIRST_NAME_SCHEMA = string()
   .required("Поле обов’язкове для заповнення")
   .max(MAX_CHARS, `Ім'я має містити не більше ${MAX_CHARS} символів`)
@@ -56,6 +56,7 @@ const FOP_CODE = string()
 const SCHEMAS = {
   email: EMAIL_SCHEMA,
   password: PASSWORD_SCHEMA,
+  newPassword: PASSWORD_SCHEMA,
   firstName: FIRST_NAME_SCHEMA,
   lastName: LAST_NAME_SCHEMA,
   repeatPassword: REPEAT_PASSWORD_SCHEMA,

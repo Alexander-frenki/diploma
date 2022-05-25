@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useRecoilValue } from "recoil";
 import { Alerts, Header, LeftMenu } from "..";
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { userState } from "../../recoil";
 
 export function Layout({ children }) {
@@ -11,6 +11,11 @@ export function Layout({ children }) {
   return (
     <>
       <Header />
+      {!isLoggedIn && (
+        <Box sx={{ position: "relative" }}>
+          <Alerts />
+        </Box>
+      )}
       {isLoggedIn ? (
         <Grid
           container

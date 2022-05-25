@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useLoader, useValidation } from "../../hooks";
 import { useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
-import { userSelector } from "../../recoil";
+import { alertState, userSelector } from "../../recoil";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -56,6 +56,7 @@ export function SignIn() {
   const schema = useValidation(Object.keys(FORM_DATA));
   const setUser = useSetRecoilState(userSelector);
   const { addAction, removeAction } = useLoader();
+  const setAlert = useSetRecoilState(alertState);
 
   const {
     register,
@@ -73,7 +74,10 @@ export function SignIn() {
       setUser(user);
       navigate(ROUTES.home.pathname);
     } catch (error) {
-      console.log(error);
+      setAlert({
+        severity: "error",
+        message: error.response.data.message,
+      });
     } finally {
       removeAction("LOGIN");
     }

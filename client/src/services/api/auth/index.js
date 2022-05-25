@@ -18,3 +18,13 @@ export async function checkAuth() {
 export async function logout() {
   return API.post("/logout");
 }
+
+export async function updateUser(userData) {
+  const { data } = await API.put("/update-user", userData);
+  return data;
+}
+
+export async function updateUserPassword(userData) {
+  const { data } = await API.put("/update-user-password", userData);
+  return data;
+}

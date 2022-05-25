@@ -7,6 +7,7 @@ import {
   updateCars,
 } from "../controllers/car.js";
 import { getCompanyInfo, searchCompany } from "../controllers/company.js";
+import { searchCourt } from "../controllers/court.js";
 import { getFopInfo } from "../controllers/fop.js";
 import {
   activate,
@@ -14,6 +15,8 @@ import {
   logout,
   refresh,
   registration,
+  updateUser,
+  updateUserPassword,
 } from "../controllers/user.js";
 import { authMiddleware } from "../middlewares/auth.js";
 
@@ -35,6 +38,23 @@ router.post(
   login
 );
 
+router.put(
+  "/update-user",
+  authMiddleware,
+  body("email").isEmail().isLength({ max: 255 }),
+  body("firstName").isLength({ min: 2, max: 255 }),
+  body("lastName").isLength({ min: 2, max: 255 }),
+  updateUser
+);
+
+router.put(
+  "/update-user-password",
+  authMiddleware,
+  body("password").isLength({ min: 8, max: 255 }),
+  body("newPassword").isLength({ min: 8, max: 255 }),
+  updateUserPassword
+);
+
 router.post("/logout", logout);
 router.get("/activate/:link", activate);
 router.get("/refresh", refresh);
@@ -49,4 +69,5 @@ router.post("/search-company", authMiddleware, searchCompany);
 
 router.post("/fop-info", authMiddleware, getFopInfo);
 
+router.post("/search-court", authMiddleware, searchCourt);
 export { router };

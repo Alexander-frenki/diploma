@@ -9,7 +9,14 @@ import {
 import { useSetRecoilState } from "recoil";
 import { userSelector } from "../recoil";
 import { useLoader } from "../hooks";
-import { Home, SignIn, SignUp, UserActivation, UserSettings } from "../pages";
+import {
+  Home,
+  PasswordChange,
+  SignIn,
+  SignUp,
+  UserActivation,
+  UserSettings,
+} from "../pages";
 import { checkAuth } from "../services";
 
 export const ROUTES = {
@@ -46,6 +53,11 @@ export const ROUTES = {
   userSettings: {
     pathname: "/user-settings",
     Component: UserSettings,
+    isProtected: true,
+  },
+  passwordChange: {
+    pathname: "/password-change",
+    Component: PasswordChange,
     isProtected: true,
   },
 };
