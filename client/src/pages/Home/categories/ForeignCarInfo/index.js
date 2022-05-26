@@ -72,7 +72,11 @@ export function ForeignCarInfo() {
   }
 
   async function onSubmit(formData) {
-    setExternalCarInfo(await request(() => getExternalCarInfo(formData)));
+    setExternalCarInfo(
+      await request({
+        fn: () => getExternalCarInfo(formData),
+      })
+    );
   }
 
   if (loading) return <LinearLoader />;
@@ -86,8 +90,13 @@ export function ForeignCarInfo() {
           onSubmit={handleSubmit(onSubmit)}
           register={register}
           errors={errors}
-          title="Отримання інформації по VIN коду авто"
-        />
+          title="Отримання інформації по VIN коду авто*"
+        >
+          <Typography sx={{ fontSize: 10 }}>
+            * Пошук інформації про автомобіль відбувається на ресурсах
+            Американських аукціонів
+          </Typography>
+        </SearchForm>
       )}
       {externalCarInfo && (
         <>

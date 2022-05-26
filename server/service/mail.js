@@ -1,12 +1,10 @@
 import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: process.env.SMTP_PORT,
-  secure: false,
+  service: "gmail",
   auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASSWORD,
+    user: "alexander.frenkii@gmail.com",
+    pass: "ktrsxoqxidgcsrhk",
   },
 });
 
@@ -14,11 +12,11 @@ async function sendActivationMail(to, link) {
   await transporter.sendMail({
     from: process.env.SMTP_USER,
     to,
-    subject: "Активация аккаунта на " + process.env.API_URL,
+    subject: "Активація аккаунта",
     text: "",
     html: `
                   <div>
-                      <h1>Для активации перейдите по ссылке</h1>
+                      <h1>Для активації перейдіть за посиланням</h1>
                       <a href="${link}">${link}</a>
                   </div>
               `,

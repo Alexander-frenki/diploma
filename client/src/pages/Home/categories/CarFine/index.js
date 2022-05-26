@@ -54,7 +54,7 @@ export function CarFine() {
   });
 
   async function onSubmit(formData) {
-    setCarFines(await request(() => getCarFines(formData)));
+    setCarFines(await request({ fn: () => getCarFines(formData) }));
   }
 
   function onChange({ target: { value, name } }) {

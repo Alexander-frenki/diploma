@@ -28,3 +28,11 @@ export async function updateUserPassword(userData) {
   const { data } = await API.put("/update-user-password", userData);
   return data;
 }
+
+export async function updateUserActivationLink(userData) {
+  await API.post("/update-user-activation-link", userData);
+}
+
+export async function activateUser(activationLink) {
+  await API.post("/activate", { activationLink });
+}

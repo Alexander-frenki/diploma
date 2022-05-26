@@ -7,18 +7,21 @@ export function useFetch() {
   const setUser = useSetRecoilState(userSelector);
   const setAlert = useSetRecoilState(alertState);
 
-  async function request(
+  async function request({
     fn,
-    showSuccessAlert = false,
-    shouldUserUpdate = false
-  ) {
+    showSuccessAlert,
+    shouldUserUpdate,
+    successMessage,
+    warningMessage,
+    errorMessage,
+  }) {
     setLoading(true);
     try {
       const response = await fn();
       if (showSuccessAlert) {
         setAlert({
           severity: "success",
-          message: "Дані успішно оновлені",
+          message: successMessage ? successMessage : "Дані успішно оновлені",
         });
       }
       if (shouldUserUpdate) {
@@ -29,15 +32,18 @@ export function useFetch() {
       if (error.response.status === 404) {
         setAlert({
           severity: "warning",
-          message:
-            "На Жаль, ми не змогли знайти потрібну вам інформацію, перевірте правильність введених данних та спробуйте ще раз",
+          message: warningMessage
+            ? warningMessage
+            : "На Жаль, ми не змогли знайти потрібну вам інформацію, перевірте правильність введених данних та спробуйте ще раз",
         });
       }
 
       if (error.response.status === 500) {
         setAlert({
           severity: "error",
-          message: "От халепа, щось пішло не так, спробуйте будь ласка пізніше",
+          message: errorMessage
+            ? errorMessage
+            : "От халепа, щось пішло не так, спробуйте будь ласка пізніше",
         });
       }
 

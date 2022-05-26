@@ -16,6 +16,7 @@ import {
   refresh,
   registration,
   updateUser,
+  updateUserActivationLink,
   updateUserPassword,
 } from "../controllers/user.js";
 import { authMiddleware } from "../middlewares/auth.js";
@@ -56,7 +57,12 @@ router.put(
 );
 
 router.post("/logout", logout);
-router.get("/activate/:link", activate);
+router.post("/activate", authMiddleware, activate);
+router.post(
+  "/update-user-activation-link",
+  authMiddleware,
+  updateUserActivationLink
+);
 router.get("/refresh", refresh);
 
 router.post("/car-info", authMiddleware, getCarInfo);

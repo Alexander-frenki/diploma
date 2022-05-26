@@ -15,7 +15,6 @@ import FolderOpen from "@mui/icons-material/FolderOpen";
 import Folder from "@mui/icons-material/Folder";
 import Paid from "@mui/icons-material/Paid";
 import Gavel from "@mui/icons-material/Gavel";
-import Receipt from "@mui/icons-material/Receipt";
 // import MoneyOff from "@mui/icons-material/MoneyOff";
 // import Search from "@mui/icons-material/Search";
 import Map from "@mui/icons-material/Map";
@@ -46,12 +45,12 @@ const MENU_ITEMS = {
         pathname: CATEGORIES_PATHS.carInfo,
       },
       {
-        text: "Інформація по штрафам",
+        text: "Штрафи",
         Icon: Paid,
         pathname: CATEGORIES_PATHS.carFine,
       },
       {
-        text: "Пошук на іноземних площадках",
+        text: "Пошук на іноземних ресурсах",
         Icon: Map,
         pathname: CATEGORIES_PATHS.foreignCarInfo,
       },
@@ -64,11 +63,6 @@ const MENU_ITEMS = {
         text: "Пошук судових рішень",
         Icon: Gavel,
         pathname: CATEGORIES_PATHS.courtSearch,
-      },
-      {
-        text: "Пошук судового документа",
-        Icon: Receipt,
-        pathname: CATEGORIES_PATHS.courtDoc,
       },
     ],
   },

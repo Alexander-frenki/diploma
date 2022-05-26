@@ -53,13 +53,13 @@ export function CompanyInfo() {
   });
 
   async function onSubmit(formData) {
-    setCompanyListByName(await request(() => searchCompany(formData)));
+    setCompanyListByName(await request({ fn: () => searchCompany(formData) }));
   }
 
   useEffect(async () => {
     if (companyId) {
       setCompanyInfo(
-        await request(() => getCompanyInfo({ companyCode: companyId }))
+        await request({ fn: () => getCompanyInfo({ companyCode: companyId }) })
       );
     }
   }, [companyId]);

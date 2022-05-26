@@ -4,3 +4,4 @@ export * from "./SignUp";
 export * from "./UserActivation";
 export * from "./UserSettings";
 export * from "./PasswordChange";
+export * from "./ActivateAccount";

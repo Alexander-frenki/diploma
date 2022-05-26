@@ -71,7 +71,7 @@ export function CarInfo() {
   });
 
   async function onSubmit(formData) {
-    setCarsByNumber(await request(() => getCarInfo(formData)));
+    setCarsByNumber(await request({ fn: () => getCarInfo(formData) }));
   }
 
   function onChange({ target: { value, name } }) {
@@ -79,7 +79,11 @@ export function CarInfo() {
   }
 
   async function onAddCar(carNumber) {
-    await request(() => updateUserCars([...cars, carNumber]), true, true);
+    await request({
+      fn: () => updateUserCars([...cars, carNumber]),
+      showSuccessAlert: true,
+      shouldUserUpdate: true,
+    });
   }
 
   if (loading) return <LinearLoader />;

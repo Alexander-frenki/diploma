@@ -151,9 +151,9 @@ export function CourtSearch() {
 
   async function onSubmit(formData) {
     setDocList(
-      await request(() =>
-        searchCourtDoc({ ...formData, offset: offset.current })
-      )
+      await request({
+        fn: () => searchCourtDoc({ ...formData, offset: offset.current }),
+      })
     );
     offset.current = offset.current + 20;
   }

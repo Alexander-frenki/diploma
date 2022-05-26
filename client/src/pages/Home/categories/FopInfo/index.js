@@ -43,7 +43,7 @@ export function FopInfo() {
   });
 
   async function onSubmit(formData) {
-    setFopInfo(await request(() => getFopInfo(formData)));
+    setFopInfo(await request({ fn: () => getFopInfo(formData) }));
   }
 
   if (loading) return <LinearLoader />;

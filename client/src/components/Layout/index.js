@@ -5,18 +5,19 @@ import { Alerts, Header, LeftMenu } from "..";
 import { Box, Grid } from "@mui/material";
 import { userState } from "../../recoil";
 
-export function Layout({ children }) {
-  const { isLoggedIn } = useRecoilValue(userState);
+export function Layout({ children, isShowContent = true }) {
+  const { isLoggedIn, isActivated } = useRecoilValue(userState);
 
   return (
     <>
       <Header />
-      {!isLoggedIn && (
-        <Box sx={{ position: "relative" }}>
-          <Alerts />
-        </Box>
-      )}
-      {isLoggedIn ? (
+      {!isLoggedIn ||
+        (!isActivated && !isShowContent && (
+          <Box sx={{ position: "relative" }}>
+            <Alerts />
+          </Box>
+        ))}
+      {isLoggedIn && isActivated && isShowContent ? (
         <Grid
           container
           sx={{
@@ -51,4 +52,5 @@ export function Layout({ children }) {
 
 Layout.propTypes = {
   children: PropTypes.node,
+  isShowContent: PropTypes.bool,
 };

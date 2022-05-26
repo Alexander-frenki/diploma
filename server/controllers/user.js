@@ -8,6 +8,7 @@ import {
   registrationUser,
   updateUserData,
   updatePassword,
+  generateActivationLink,
 } from "../service/user.js";
 
 async function registration(req, res, next) {
@@ -78,9 +79,20 @@ async function logout(req, res, next) {
 
 async function activate(req, res, next) {
   try {
-    const activationLink = req.params.link;
-    await activateUser(activationLink);
-    return res.redirect(process.env.CLIENT_URL);
+    const { activationLink } = req.body;
+    console.log(activationLink);
+    const userData = await activateUser(activationLink);
+    return res.json(userData);
+  } catch (e) {
+    next(e);
+  }
+}
+
+async function updateUserActivationLink(req, res, next) {
+  try {
+    const { id } = req.body;
+    await generateActivationLink(id);
+    return res.sendStatus(200);
   } catch (e) {
     next(e);
   }
@@ -105,6 +117,7 @@ export {
   login,
   updateUser,
   updateUserPassword,
+  updateUserActivationLink,
   logout,
   activate,
   refresh,

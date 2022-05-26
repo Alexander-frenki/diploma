@@ -110,7 +110,7 @@ export function SignUp() {
       const { user, accessToken } = await registration(formData);
       localStorage.setItem("token", accessToken);
       setUser(user);
-      navigate(ROUTES.home.pathname);
+      navigate(ROUTES.userActivation.pathname);
     } catch (error) {
       setAlert({
         severity: "error",

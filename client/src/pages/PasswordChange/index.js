@@ -72,7 +72,10 @@ export function PasswordChange() {
   });
 
   async function onSubmit(formData) {
-    await request(() => updateUserPassword({ ...formData, id }), true);
+    await request({
+      fn: () => updateUserPassword({ ...formData, id }),
+      showSuccessAlert: true,
+    });
   }
 
   return (

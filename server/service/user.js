@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { v4 } from "uuid";
 import { UserModel } from "../models/user.js";
-// import { sendActivationMail } from "./mail.js";
+import { sendActivationMail } from "./mail.js";
 import {
   findToken,
   generateTokens,
@@ -45,12 +45,12 @@ async function registrationUser(email, password, firstName, lastName) {
     firstName,
     lastName,
     activationLink,
-    isActivated: true,
+    isActivated: false,
   });
-  // await sendActivationMail(
-  //   email,
-  //   `${process.env.API_URL}/api/activate/${activationLink}`
-  // );
+  await sendActivationMail(
+    email,
+    `${process.env.CLIENT_URL}/activate/${activationLink}`
+  );
   const userDto = parseUserData(user); // id, email, isActivated
   const tokens = generateTokens({ ...userDto });
   await saveToken(userDto.id, tokens.refreshToken);
@@ -59,11 +59,28 @@ async function registrationUser(email, password, firstName, lastName) {
 }
 
 async function activateUser(activationLink) {
-  const user = await UserModel.findOne({ activationLink });
+  const user = await UserModel.findOneAndUpdate(
+    { activationLink },
+    { isActivated: true },
+    { new: true }
+  );
   if (!user) {
     throw ApiError.BadRequest("Некоректне посилання на активацію");
   }
-  user.isActivated = true;
+
+  return parseUserData(user);
+}
+
+async function generateActivationLink(id) {
+  const user = await UserModel.findOne({ _id: id });
+  const activationLink = v4();
+
+  await sendActivationMail(
+    user.email,
+    `${process.env.CLIENT_URL}/activate/${activationLink}`
+  );
+
+  user.activationLink = activationLink;
   await user.save();
 }
 
@@ -130,6 +147,7 @@ export {
   activateUser,
   updateUserData,
   updatePassword,
+  generateActivationLink,
   loginUser,
   logoutUser,
   refreshUser,

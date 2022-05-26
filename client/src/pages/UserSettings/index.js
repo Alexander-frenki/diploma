@@ -80,7 +80,11 @@ export function UserSettings() {
   }, [firstName, lastName, email]);
 
   async function onSubmit(formData) {
-    await request(() => updateUser({ ...formData, id }), true, true);
+    await request({
+      fn: () => updateUser({ ...formData, id }),
+      showSuccessAlert: true,
+      shouldUserUpdate: true,
+    });
   }
 
   return (

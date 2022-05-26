@@ -10,6 +10,7 @@ import { useSetRecoilState } from "recoil";
 import { userSelector } from "../recoil";
 import { useLoader } from "../hooks";
 import {
+  ActivateAccount,
   Home,
   PasswordChange,
   SignIn,
@@ -50,6 +51,11 @@ export const ROUTES = {
     Component: UserActivation,
     isProtected: false,
   },
+  activateAccount: {
+    pathname: "/activate/:activationLink",
+    Component: ActivateAccount,
+    isProtected: true,
+  },
   userSettings: {
     pathname: "/user-settings",
     Component: UserSettings,
@@ -72,6 +78,11 @@ export function RouterSwitch() {
     (path) => matchPath({ path, exact: true }, location.pathname)
   );
 
+  const isActivatePath = matchPath(
+    { path: ROUTES.activateAccount.pathname, exact: true },
+    location.pathname
+  );
+
   useEffect(() => {
     (async function () {
       try {
@@ -79,7 +90,8 @@ export function RouterSwitch() {
         const { user, accessToken } = await checkAuth();
         localStorage.setItem("token", accessToken);
         setUser(user);
-        if (!user.isActivated) navigate(ROUTES.userActivation.pathname);
+        if (!user.isActivated && !isActivatePath)
+          navigate(ROUTES.userActivation.pathname);
         if (isEnterPath) navigate(ROUTES.home.pathname);
       } catch (error) {
         !isEnterPath && navigate(ROUTES.signIn.pathname);
