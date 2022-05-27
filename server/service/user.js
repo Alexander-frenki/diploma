@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { v4 } from "uuid";
 import { UserModel } from "../models/user.js";
-import { sendActivationMail } from "./mail.js";
+import { sendActivationMail, sendRecoveryMail } from "./mail.js";
 import {
   findToken,
   generateTokens,
@@ -162,12 +162,43 @@ async function refreshUser(refreshToken) {
   return { ...tokens, user: userDto };
 }
 
+async function recoveryUserPassword(email) {
+  const user = await UserModel.findOne({ email });
+  if (!user) {
+    throw ApiError.BadRequest("Користувача з таким email не знайдено");
+  }
+
+  const recoveryToken = v4();
+
+  await sendRecoveryMail(
+    email,
+    `${process.env.CLIENT_URL}/password-recovery/${recoveryToken}`
+  );
+
+  user.recoveryToken = recoveryToken;
+  await user.save();
+}
+
+async function confirmUserPassword(password, recoveryToken) {
+  const user = await UserModel.findOne({ recoveryToken });
+
+  if (!user) {
+    throw ApiError.BadRequest("Користувача не знайдено");
+  }
+
+  const hashPassword = await bcrypt.hash(password, 3);
+  user.password = hashPassword;
+  await user.save();
+}
+
 export {
   registrationUser,
   activateUser,
   updateUserData,
   updatePassword,
   generateActivationLink,
+  recoveryUserPassword,
+  confirmUserPassword,
   loginUser,
   logoutUser,
   refreshUser,

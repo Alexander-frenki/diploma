@@ -7,6 +7,7 @@ const UserSchema = new mongoose.Schema({
   lastName: { type: String, required: true },
   isActivated: { type: Boolean, default: false },
   activationLink: { type: String },
+  recoveryToken: { type: String },
   cars: { type: Array },
 });
 

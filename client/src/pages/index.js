@@ -5,3 +5,4 @@ export * from "./UserActivation";
 export * from "./UserSettings";
 export * from "./PasswordChange";
 export * from "./ActivateAccount";
+export * from "./PasswordRecovery";

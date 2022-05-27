@@ -13,6 +13,7 @@ import {
   ActivateAccount,
   Home,
   PasswordChange,
+  PasswordRecovery,
   SignIn,
   SignUp,
   UserActivation,
@@ -66,6 +67,16 @@ export const ROUTES = {
     Component: PasswordChange,
     isProtected: true,
   },
+  passwordRecovery: {
+    pathname: "/password-recovery",
+    Component: PasswordRecovery,
+    isProtected: false,
+  },
+  passwordRecoveryToken: {
+    pathname: "/password-recovery/:token",
+    Component: PasswordRecovery,
+    isProtected: false,
+  },
 };
 
 export function RouterSwitch() {
@@ -74,9 +85,12 @@ export function RouterSwitch() {
   const setUser = useSetRecoilState(userSelector);
   const { addAction, removeAction } = useLoader();
 
-  const isEnterPath = [ROUTES.signIn.pathname, ROUTES.signOut.pathname].some(
-    (path) => matchPath({ path, exact: true }, location.pathname)
-  );
+  const isEnterPath = [
+    ROUTES.signIn.pathname,
+    ROUTES.signOut.pathname,
+    ROUTES.passwordRecovery.pathname,
+    ROUTES.passwordRecoveryToken.pathname,
+  ].some((path) => matchPath({ path, exact: true }, location.pathname));
 
   const isActivatePath = matchPath(
     { path: ROUTES.activateAccount.pathname, exact: true },

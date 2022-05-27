@@ -23,4 +23,19 @@ async function sendActivationMail(to, link) {
   });
 }
 
-export { sendActivationMail };
+async function sendRecoveryMail(to, link) {
+  await transporter.sendMail({
+    from: process.env.SMTP_USER,
+    to,
+    subject: "Відновлення паролю",
+    text: "",
+    html: `
+                  <div>
+                      <h1>Для відновлення паролю перейдіть за посиланням</h1>
+                      <a href="${link}">${link}</a>
+                  </div>
+              `,
+  });
+}
+
+export { sendActivationMail, sendRecoveryMail };

@@ -11,8 +11,10 @@ import { searchCourt } from "../controllers/court.js";
 import { getFopInfo } from "../controllers/fop.js";
 import {
   activate,
+  confirmPassword,
   login,
   logout,
+  recoveryPassword,
   refresh,
   registration,
   updateUser,
@@ -64,6 +66,12 @@ router.post(
   updateUserActivationLink
 );
 router.get("/refresh", refresh);
+router.post("/recovery-password", recoveryPassword);
+router.post(
+  "/confirm-password",
+  body("newPassword").isLength({ min: 8, max: 255 }),
+  confirmPassword
+);
 
 router.post("/car-info", authMiddleware, getCarInfo);
 router.post("/car-update", authMiddleware, updateCars);

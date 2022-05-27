@@ -9,6 +9,8 @@ import {
   updateUserData,
   updatePassword,
   generateActivationLink,
+  recoveryUserPassword,
+  confirmUserPassword,
 } from "../service/user.js";
 
 async function registration(req, res, next) {
@@ -111,12 +113,34 @@ async function refresh(req, res, next) {
   }
 }
 
+async function recoveryPassword(req, res, next) {
+  try {
+    const { email } = req.body;
+    await recoveryUserPassword(email);
+    return res.sendStatus(200);
+  } catch (e) {
+    next(e);
+  }
+}
+
+async function confirmPassword(req, res, next) {
+  try {
+    const { newPassword, recoveryToken } = req.body;
+    await confirmUserPassword(newPassword, recoveryToken);
+    return res.sendStatus(200);
+  } catch (e) {
+    next(e);
+  }
+}
+
 export {
   registration,
   login,
   updateUser,
   updateUserPassword,
   updateUserActivationLink,
+  recoveryPassword,
+  confirmPassword,
   logout,
   activate,
   refresh,

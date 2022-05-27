@@ -14,6 +14,7 @@ export function useFetch() {
     successMessage,
     warningMessage,
     errorMessage,
+    resetLoader,
   }) {
     setLoading(true);
     try {
@@ -55,6 +56,7 @@ export function useFetch() {
       }
     } finally {
       setLoading(false);
+      resetLoader && resetLoader();
     }
   }
 

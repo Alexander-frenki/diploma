@@ -36,3 +36,11 @@ export async function updateUserActivationLink(userData) {
 export async function activateUser(activationLink) {
   await API.post("/activate", { activationLink });
 }
+
+export async function recoveryPassword(userData) {
+  await API.post("/recovery-password", userData);
+}
+
+export async function confirmPassword(userData) {
+  await API.post("/confirm-password", userData);
+}

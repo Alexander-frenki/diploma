@@ -122,7 +122,11 @@ export function SignIn() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link component="button" variant="body2">
+                <Link
+                  onClick={() => navigate(ROUTES.passwordRecovery.pathname)}
+                  component="button"
+                  variant="body2"
+                >
                   Забули пароль?
                 </Link>
               </Grid>
