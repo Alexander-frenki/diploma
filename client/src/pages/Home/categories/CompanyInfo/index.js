@@ -25,7 +25,6 @@ const FORM_DATA = {
       label: "Назва компанії",
       error: !!errors.companyName?.message,
       helperText: errors.companyName?.message,
-      autoFocus: true,
     },
   }),
 };

@@ -9,7 +9,7 @@ export function LinearLoader() {
         height: 1,
         display: "flex",
         justifyContent: "center",
-        alignItems: "center",
+        alignItems: ["flex-start", "flex-start", "center"],
       }}
     >
       <LinearProgress sx={{ width: 1 }} />

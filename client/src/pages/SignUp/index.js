@@ -16,7 +16,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { registration } from "../../services";
 import { ROUTES } from "../../router";
-import { Layout } from "../../components";
+import { Alerts, Layout } from "../../components";
 
 const FORM_DATA = {
   firstName: (register, errors) => ({
@@ -30,7 +30,6 @@ const FORM_DATA = {
       error: !!errors.firstName?.message,
       helperText: errors.firstName?.message,
       autoComplete: "given-name",
-      autoFocus: true,
     },
   }),
   lastName: (register, errors) => ({
@@ -123,6 +122,9 @@ export function SignUp() {
 
   return (
     <Layout>
+      <Box sx={{ position: "relative" }}>
+        <Alerts />
+      </Box>
       <Container component="main" maxWidth="xs">
         <Box
           sx={{

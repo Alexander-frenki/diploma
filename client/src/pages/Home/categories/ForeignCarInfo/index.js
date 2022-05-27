@@ -43,7 +43,6 @@ const FORM_DATA = {
       label: "VIN код автомобіля",
       error: !!errors.carVin?.message,
       helperText: errors.carVin?.message,
-      autoFocus: true,
     },
   }),
 };

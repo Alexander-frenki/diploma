@@ -16,7 +16,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { login } from "../../services";
 import { ROUTES } from "../../router";
-import { Layout } from "../../components";
+import { Alerts, Layout } from "../../components";
 
 const FORM_DATA = {
   email: (register, errors) => ({
@@ -31,7 +31,6 @@ const FORM_DATA = {
       error: !!errors.email?.message,
       helperText: errors.email?.message,
       autoComplete: "email",
-      autoFocus: true,
     },
   }),
   password: (register, errors) => ({
@@ -85,6 +84,9 @@ export function SignIn() {
 
   return (
     <Layout>
+      <Box sx={{ position: "relative" }}>
+        <Alerts />
+      </Box>
       <Container component="main" maxWidth="xs">
         <Box
           sx={{

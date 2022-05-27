@@ -23,7 +23,6 @@ const FORM_DATA = {
       label: "Ідентифікаційний код",
       error: !!errors.fopCode?.message,
       helperText: errors.fopCode?.message,
-      autoFocus: true,
     },
   }),
 };

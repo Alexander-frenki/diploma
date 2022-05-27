@@ -47,7 +47,6 @@ const FORM_DATA = {
       label: "Номер автомобіля",
       error: !!errors.carNumber?.message,
       helperText: errors.carNumber?.message,
-      autoFocus: true,
     },
   }),
 };

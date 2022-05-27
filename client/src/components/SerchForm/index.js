@@ -29,6 +29,7 @@ export function SearchForm({
         justifyContent: "center",
         alignItems: "center",
         mx: "auto",
+        px: [1, 1, 0],
       }}
     >
       <Typography
@@ -45,7 +46,7 @@ export function SearchForm({
         component="form"
         onSubmit={onSubmit}
         noValidate
-        sx={{ mt: 1, width: 1 }}
+        sx={{ mt: 1, width: 1, maxWidth: 400 }}
       >
         {Object.values(formData).map((field) => {
           const { Component, componentProps, items } = field(

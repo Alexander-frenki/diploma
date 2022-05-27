@@ -39,6 +39,16 @@ const COMPONENT_OVERRIDES = {
   },
 };
 
+const BREAKPOINTS = {
+  values: {
+    xs: 0,
+    sm: 576,
+    md: 992,
+    lg: 1200,
+    xl: 1536,
+  },
+};
+
 // const PALLETE_COLORS = {
 //   primary: {
 //     main: "#00e676",
@@ -61,6 +71,7 @@ const themes = {
     contentBackground: "#e3e3e3",
     borderColor: "#BABABA",
     components: COMPONENT_OVERRIDES,
+    breakpoints: BREAKPOINTS,
   }),
   dark: createTheme({
     palette: {
@@ -73,6 +84,7 @@ const themes = {
     contentBackground: "#000",
     borderColor: "#666",
     components: COMPONENT_OVERRIDES,
+    breakpoints: BREAKPOINTS,
   }),
 };
 export const ThemeContext = React.createContext();
