@@ -8,7 +8,11 @@ import {
   EMAIL_REGEX,
   FOP_CODE_REGEX,
   MAX_CHARS,
+  PASSWORD_DIGIT_REGEX,
+  PASSWORD_LOWERCASE_REGEX,
   PASSWORD_MIN_LENGTH,
+  PASSWORD_SPECIAL_REGEX,
+  PASSWORD_UPPERCASE_REGEX,
   USER_DATA_REGEX,
 } from "../../constants/validation";
 
@@ -22,7 +26,20 @@ const EMAIL_SCHEMA = string()
 const PASSWORD_SCHEMA = string()
   .required("Поле обов’язкове для заповнення")
   .min(PASSWORD_MIN_LENGTH, "Пароль має містити не менше 8 символів")
-  .max(MAX_CHARS, `Пароль має містити не більше ${MAX_CHARS} символів`);
+  .max(MAX_CHARS, `Пароль має містити не більше ${MAX_CHARS} символів`)
+  .matches(
+    PASSWORD_LOWERCASE_REGEX,
+    "Пароль має містити принаймні одну літеру у нижньому регістрі"
+  )
+  .matches(
+    PASSWORD_UPPERCASE_REGEX,
+    "Пароль має містити принаймні одну літеру у верхньому регістрі"
+  )
+  .matches(PASSWORD_DIGIT_REGEX, "Пароль має містити принаймні одну цифру")
+  .matches(
+    PASSWORD_SPECIAL_REGEX,
+    "Пароль має містити принаймні один спеціальний символ"
+  );
 const REPEAT_PASSWORD_SCHEMA = string()
   .required("Поле обов’язкове для заповнення")
   .min(PASSWORD_MIN_LENGTH, "Пароль має містити не менше 8 символів")

@@ -1,6 +1,9 @@
 export const MAX_CHARS = 255;
 export const PASSWORD_MIN_LENGTH = 8;
-
+export const PASSWORD_LOWERCASE_REGEX = /(?=.*[a-zа-яієїґ])/;
+export const PASSWORD_UPPERCASE_REGEX = /(?=.*[A-ZА-ЯІЄЇҐ])/;
+export const PASSWORD_DIGIT_REGEX = /(?=.*\d)/;
+export const PASSWORD_SPECIAL_REGEX = /(?=.*\W)/;
 export const EMAIL_REGEX =
   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 export const USER_DATA_REGEX = /^[А-ЯІЄЇҐа-яієїґ'][А-ЯІЄЇҐа-яієїґ'\- ]+$/;
