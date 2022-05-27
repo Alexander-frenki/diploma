@@ -65,6 +65,7 @@ export function UserSettings() {
     register,
     handleSubmit,
     reset,
+    getValues,
     formState: { errors, isDirty },
   } = useForm({
     resolver: yupResolver(schema),
@@ -80,11 +81,16 @@ export function UserSettings() {
   }, [firstName, lastName, email]);
 
   async function onSubmit(formData) {
+    const isEmailChanged = email !== getValues().email;
     await request({
       fn: () => updateUser({ ...formData, id }),
       showSuccessAlert: true,
       shouldUserUpdate: true,
     });
+
+    if (isEmailChanged) {
+      navigate(ROUTES.userActivation.pathname);
+    }
   }
 
   return (

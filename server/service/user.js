@@ -101,10 +101,30 @@ async function loginUser(email, password) {
 }
 
 async function updateUserData({ id, ...updatedData }) {
-  const user = await UserModel.findOneAndUpdate({ _id: id }, updatedData, {
-    new: true,
+  const user = await UserModel.findOne({ _id: id });
+  const isEmailChanged = user.email !== updatedData.email;
+
+  if (isEmailChanged) {
+    const candidate = await UserModel.findOne({ email: updatedData.email });
+    if (candidate) {
+      throw ApiError.BadRequest(
+        `Користувач із поштовою адресою ${updatedData.email} вже існує`
+      );
+    }
+    const activationLink = v4();
+    await sendActivationMail(
+      updatedData.email,
+      `${process.env.CLIENT_URL}/activate/${activationLink}`
+    );
+    user.activationLink = activationLink;
+    user.isActivated = false;
+  }
+
+  Object.entries(updatedData).forEach(([key, value]) => {
+    user[key] = value;
   });
 
+  await user.save();
   return parseUserData(user);
 }
 

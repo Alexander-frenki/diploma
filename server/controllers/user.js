@@ -80,7 +80,6 @@ async function logout(req, res, next) {
 async function activate(req, res, next) {
   try {
     const { activationLink } = req.body;
-    console.log(activationLink);
     const userData = await activateUser(activationLink);
     return res.json(userData);
   } catch (e) {

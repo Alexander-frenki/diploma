@@ -102,7 +102,9 @@ function UserInfo({ isDesktop }) {
           <Typography variant="h6">
             {firstName} {lastName}
           </Typography>
-          <Typography sx={{ fontSize: 10 }}>{email}</Typography>
+          <Typography align="center" sx={{ fontSize: 10 }}>
+            {email}
+          </Typography>
         </Box>
       )}
     </Box>
