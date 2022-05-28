@@ -3,7 +3,6 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
-import expressSanitized from "express-sanitize-escape";
 import { router } from "./router/index.js";
 import { errorMiddleware } from "./middlewares/error.js";
 
@@ -13,7 +12,6 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 
 app.use(express.json());
-app.use(expressSanitized.middleware());
 app.use(cookieParser());
 app.use(
   cors({

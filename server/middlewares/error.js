@@ -1,12 +1,11 @@
 import { ApiError } from "../exceptions/apiError.js";
 
 function errorMiddleware(err, req, res, next) {
-  console.log(err);
   if (err?.code === 404) {
     res.sendStatus(404);
   }
 
-  if (err?.code === 424) {
+  if ((err?.code === 424 || err?.code === 403) && err?.mock) {
     return res.send(err?.mock);
   }
 

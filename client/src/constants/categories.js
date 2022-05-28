@@ -5,4 +5,6 @@ export const CATEGORIES_PATHS = {
   fopInfo: "/fop-info",
   foreignCarInfo: "/foreign-car-info",
   courtSearch: "/court-search",
+  alimony: "/alimony",
+  wanted: "/wanted",
 };

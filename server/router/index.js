@@ -9,6 +9,7 @@ import {
 import { getCompanyInfo, searchCompany } from "../controllers/company.js";
 import { searchCourt } from "../controllers/court.js";
 import { getFopInfo } from "../controllers/fop.js";
+import { searchAlimony, searchWanted } from "../controllers/physical.js";
 import {
   activate,
   confirmPassword,
@@ -80,8 +81,11 @@ router.post("/car-fines", authMiddleware, getCarFines);
 
 router.post("/company-info", authMiddleware, getCompanyInfo);
 router.post("/search-company", authMiddleware, searchCompany);
-
 router.post("/fop-info", authMiddleware, getFopInfo);
 
 router.post("/search-court", authMiddleware, searchCourt);
+
+router.post("/alimony", authMiddleware, searchAlimony);
+router.post("/wanted", authMiddleware, searchWanted);
+
 export { router };

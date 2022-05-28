@@ -18,8 +18,8 @@ import Folder from "@mui/icons-material/Folder";
 import Paid from "@mui/icons-material/Paid";
 import Gavel from "@mui/icons-material/Gavel";
 import MenuIcon from "@mui/icons-material/Menu";
-// import MoneyOff from "@mui/icons-material/MoneyOff";
-// import Search from "@mui/icons-material/Search";
+import MoneyOff from "@mui/icons-material/MoneyOff";
+import Search from "@mui/icons-material/Search";
 import Map from "@mui/icons-material/Map";
 import { CATEGORIES_PATHS } from "../../constants/categories";
 
@@ -69,19 +69,21 @@ const MENU_ITEMS = {
       },
     ],
   },
-  // physical: {
-  //   title: "Фізичні особи",
-  //   items: [
-  //     {
-  //       text: "Заборгованість по аліментах",
-  //       Icon: MoneyOff,
-  //     },
-  //     {
-  //       text: "Пошук в базі людей в розшуку",
-  //       Icon: Search,
-  //     },
-  //   ],
-  // },
+  physical: {
+    title: "Фізичні особи",
+    items: [
+      {
+        text: "Заборгованість по аліментах",
+        pathname: CATEGORIES_PATHS.alimony,
+        Icon: MoneyOff,
+      },
+      {
+        text: "Пошук в базі людей в розшуку",
+        Icon: Search,
+        pathname: CATEGORIES_PATHS.wanted,
+      },
+    ],
+  },
 };
 
 function UserInfo({ isDesktop }) {

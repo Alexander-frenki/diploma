@@ -44,10 +44,27 @@ const REPEAT_PASSWORD_SCHEMA = string()
   .required("Поле обов’язкове для заповнення")
   .min(PASSWORD_MIN_LENGTH, "Пароль має містити не менше 8 символів")
   .max(MAX_CHARS, `Пароль має містити не більше ${MAX_CHARS} символів`)
+  .matches(
+    PASSWORD_LOWERCASE_REGEX,
+    "Пароль має містити принаймні одну літеру у нижньому регістрі"
+  )
+  .matches(
+    PASSWORD_UPPERCASE_REGEX,
+    "Пароль має містити принаймні одну літеру у верхньому регістрі"
+  )
+  .matches(PASSWORD_DIGIT_REGEX, "Пароль має містити принаймні одну цифру")
+  .matches(
+    PASSWORD_SPECIAL_REGEX,
+    "Пароль має містити принаймні один спеціальний символ"
+  )
   .oneOf([ref("password"), ref("newPassword")], "Паролі не збігаються");
 const FIRST_NAME_SCHEMA = string()
   .required("Поле обов’язкове для заповнення")
   .max(MAX_CHARS, `Ім'я має містити не більше ${MAX_CHARS} символів`)
+  .matches(USER_DATA_REGEX, "Будь ласка, введіть своє ім'я");
+const PATRONYMIC_SCHEMA = string()
+  .required("Поле обов’язкове для заповнення")
+  .max(MAX_CHARS, `По батькові має містити не більше ${MAX_CHARS} символів`)
   .matches(USER_DATA_REGEX, "Будь ласка, введіть своє ім'я");
 const LAST_NAME_SCHEMA = string()
   .required("Поле обов’язкове для заповнення")
@@ -82,6 +99,7 @@ const SCHEMAS = {
   companyCode: COMPANY_CODE,
   companyName: COMPANY_NAME,
   fopCode: FOP_CODE,
+  patronymic: PATRONYMIC_SCHEMA,
 };
 
 export function useValidation(fields) {
