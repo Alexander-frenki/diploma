@@ -200,13 +200,16 @@ export function CompanyDetail({
                   key={name}
                   data={[
                     ["Звітний рік", year],
-                    ["Доходи", format(revenue)],
-                    ["Витрати", format(expenses)],
-                    ["Чистий прибуток", format(profit)],
-                    ["Необоротні активи", format(nonCurrentAssets)],
-                    ["Оборотні активи", format(currentAssets)],
-                    ["Зобов'язання", format(liability)],
-                    ["Активи", format(balance)],
+                    ["Доходи", revenue && format(revenue)],
+                    ["Витрати", expenses && format(expenses)],
+                    ["Чистий прибуток", profit && format(profit)],
+                    [
+                      "Необоротні активи",
+                      nonCurrentAssets && format(nonCurrentAssets),
+                    ],
+                    ["Оборотні активи", currentAssets && format(currentAssets)],
+                    ["Зобов'язання", liability && format(liability)],
+                    ["Активи", balance && format(balance)],
                   ]}
                 />
               )

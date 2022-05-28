@@ -84,7 +84,9 @@ export function CarFine() {
           />
 
           <Typography sx={{ my: 2 }} align="center">
-            Ось що нам вдалось знайти:
+            {carFines?.length
+              ? "Ось що нам вдалось знайти:"
+              : "Штрафів не знайдено"}
           </Typography>
 
           {carFines.map((fine) => {

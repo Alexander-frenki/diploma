@@ -17,10 +17,14 @@ const TableItem = styled(Typography)(({ theme }) => ({
   },
 }));
 
+function getKey() {
+  return (Math.random() * 0xfffff * 1000000).toString(16).slice(0, 6);
+}
+
 function renderItem(title, detail) {
   if (typeof detail === "string" || typeof detail === "number") {
     return (
-      <TableItem key={title}>
+      <TableItem key={`${title}/${detail}`}>
         {title} <span>{detail}</span>
       </TableItem>
     );
@@ -32,7 +36,7 @@ function renderItem(title, detail) {
 
   if (React.isValidElement(detail)) {
     return (
-      <TableItem key={title}>
+      <TableItem key={getKey()}>
         {title} {detail}
       </TableItem>
     );

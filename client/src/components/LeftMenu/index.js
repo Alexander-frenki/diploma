@@ -220,7 +220,7 @@ export function LeftMenu() {
           zIndex: 10,
           bgcolor: (theme) => theme.contentBackground,
           transition: "width 0.35s ease-in",
-          height: 1,
+          height: "calc(100% - 56px)",
           ...(isOpen && { pr: 1 }),
           borderRight: (theme) =>
             isOpen && `2px solid ${theme.palette.background.paper}`,

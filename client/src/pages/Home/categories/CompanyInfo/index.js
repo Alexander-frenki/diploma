@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useFetch, useValidation } from "../../../../hooks";
-import { Button, Stack, TextField, Typography } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
   BackButton,
   CompanyDetail,
   LinearLoader,
   SearchForm,
+  Table,
 } from "../../../../components";
 import { getCompanyInfo, searchCompany } from "../../../../services";
 import { CATEGORIES_PATHS } from "../../../../constants/categories";
@@ -37,9 +38,9 @@ export function CompanyInfo() {
   const { id: companyId } = useParams();
   const navigate = useNavigate();
 
-  const isBackButtonShown = !!companyId || !!companyListByName?.length;
-  const isSearchFormShown = !companyId && !companyListByName?.length;
-  const isCompanyListShown = !companyId && !!companyListByName?.length;
+  const isBackButtonShown = !!companyId || companyListByName;
+  const isSearchFormShown = !companyId && !companyListByName;
+  const isCompanyListShown = !companyId && !!companyListByName;
   const isCompanyInfoShown = !!companyId && companyInfo;
 
   const {
@@ -62,10 +63,6 @@ export function CompanyInfo() {
       );
     }
   }, [companyId]);
-
-  useEffect(() => {
-    console.log("companyInfo", companyInfo);
-  }, [companyInfo]);
 
   if (loading) return <LinearLoader />;
 
@@ -97,22 +94,27 @@ export function CompanyInfo() {
       {isCompanyListShown && (
         <>
           <Typography sx={{ my: 2 }} align="center">
-            Ось що нам вдалось знайти:
+            {companyListByName?.length
+              ? "Ось що нам вдалось знайти:"
+              : "Нажаль по вашому запиту інформацію не знайдено"}
           </Typography>
 
-          <Stack spacing={2}>
-            {companyListByName.map(({ code, value }) => (
-              <Button
-                onClick={() =>
-                  navigate(`${CATEGORIES_PATHS.companyInfo}/${code}`)
-                }
-                variant="contained"
-                key={value}
-              >
-                {value}
-              </Button>
-            ))}
-          </Stack>
+          <Table
+            data={[
+              ...companyListByName.map(({ code, value }) => [
+                value,
+                <Button
+                  key={`${code}`}
+                  sx={{ flexShrink: 0 }}
+                  onClick={() =>
+                    navigate(`${CATEGORIES_PATHS.companyInfo}/${code}`)
+                  }
+                >
+                  Детальніше
+                </Button>,
+              ]),
+            ]}
+          />
         </>
       )}
 

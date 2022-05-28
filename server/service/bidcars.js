@@ -48,8 +48,9 @@ async function parseBidcarsData(vin) {
   await page.waitForTimeout(1000);
 
   if (
-    (await page.isVisible(".search-count")) &&
-    (await page.textContent(".search-count")) === "(0)"
+    ((await page.isVisible(".search-count")) &&
+      (await page.textContent(".search-count")) === "(0)") ||
+    (await page.textContent(".search-count")) === ""
   ) {
     return null;
   }

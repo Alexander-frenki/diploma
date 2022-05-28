@@ -5,7 +5,7 @@ async function searchCompany(req, res, next) {
   try {
     const { companyName } = req.body;
     const response = await fetch(
-      `${process.env.APIV3}/search/companies-by-field?apiKey=${process.env.API_KEY}&field=full_name&q=${companyName}`
+      `${process.env.APIV3}/search/companies-by-field?apiKey=${process.env.API_KEY}&field=full_name&q=${companyName}&limit=100`
     );
     const json = await response.json();
 
