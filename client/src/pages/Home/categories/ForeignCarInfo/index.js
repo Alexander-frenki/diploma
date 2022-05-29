@@ -4,32 +4,18 @@ import { useForm } from "react-hook-form";
 import { useLocation } from "react-router-dom";
 import Slider from "react-slick";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Box, styled, TextField, Typography } from "@mui/material";
-import CarCrash from "@mui/icons-material/CarCrash";
-import DirectionsCar from "@mui/icons-material/DirectionsCar";
-import AttachMoney from "@mui/icons-material/AttachMoney";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { getExternalCarInfo } from "../../../../services/api/car";
 import { SearchForm } from "../../../../components/SerchForm";
 import { BackButton, LinearLoader, Table } from "../../../../components";
-
-const TableHeader = styled(Typography)(() => ({
-  display: "flex",
-  alignItems: "center",
-  marginTop: 16,
-  marginBottom: 16,
-  fontSize: 20,
-  fontWeight: 600,
-  "& svg": {
-    marginRight: 16,
-  },
-  "& > *": {
-    fontSize: 20,
-    fontWeight: 600,
-    display: "flex",
-    alignItems: "center",
-    marginRight: "auto",
-  },
-}));
+import ExpandMore from "@mui/icons-material/ExpandMore";
 
 const FORM_DATA = {
   carVin: (register, errors) => ({
@@ -50,6 +36,7 @@ const FORM_DATA = {
 export default function ForeignCarInfo() {
   const schema = useValidation(Object.keys(FORM_DATA));
   const [externalCarInfo, setExternalCarInfo] = useState(null);
+  const [expanded, setExpanded] = useState(false);
   const { loading, request } = useFetch();
   const { state } = useLocation();
 
@@ -68,6 +55,10 @@ export default function ForeignCarInfo() {
 
   function onChange({ target: { value, name } }) {
     setValue(name, value.toUpperCase());
+  }
+
+  function handleChange(panel) {
+    return (event, isExpanded) => setExpanded(isExpanded ? panel : false);
   }
 
   async function onSubmit(formData) {
@@ -127,36 +118,34 @@ export default function ForeignCarInfo() {
             </Slider>
           </Box>
 
-          <TableHeader variant="h6">
-            <Box>
-              <AttachMoney />
-              Ціна лоту
-            </Box>
+          <Accordion
+            expanded={expanded === "panel1"}
+            onChange={handleChange("panel1")}
+          >
+            <AccordionSummary expandIcon={<ExpandMore />}>
+              Деталі стану
+            </AccordionSummary>
+            <AccordionDetails>
+              <Table
+                data={[
+                  ["Ціна лоту", externalCarInfo.price],
+                  ...externalCarInfo.conditions,
+                ]}
+              />
+            </AccordionDetails>
+          </Accordion>
 
-            <Box sx={{ marginLeft: "auto", marginRight: 0 }}>
-              {externalCarInfo.price}
-            </Box>
-          </TableHeader>
-
-          <Table
-            header={
-              <TableHeader variant="h6">
-                <CarCrash />
-                Деталі стану
-              </TableHeader>
-            }
-            data={externalCarInfo.conditions}
-          />
-
-          <Table
-            header={
-              <TableHeader variant="h6">
-                <DirectionsCar />
-                Деталі автомобіля
-              </TableHeader>
-            }
-            data={externalCarInfo.details}
-          />
+          <Accordion
+            expanded={expanded === "panel2"}
+            onChange={handleChange("panel2")}
+          >
+            <AccordionSummary expandIcon={<ExpandMore />}>
+              Деталі автомобіля
+            </AccordionSummary>
+            <AccordionDetails>
+              <Table data={externalCarInfo.details} />
+            </AccordionDetails>
+          </Accordion>
         </>
       )}
     </>

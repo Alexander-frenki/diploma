@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useFetch, useValidation } from "../../../../hooks";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -130,8 +130,6 @@ export default function CourtSearch() {
   const [docList, setDocList] = useState(null);
   const { loading, request } = useFetch();
   const offset = useRef(0);
-
-  useEffect(() => console.log(docList), [docList]);
 
   const {
     register,

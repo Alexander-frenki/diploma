@@ -31,7 +31,9 @@ export default function Home() {
   return (
     <Layout>
       {category ? (
-        <CategoryComponent />
+        <React.Suspense fallback="">
+          <CategoryComponent />
+        </React.Suspense>
       ) : (
         <Box
           sx={{
