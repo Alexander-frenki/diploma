@@ -49,24 +49,10 @@ const BREAKPOINTS = {
   },
 };
 
-// const PALLETE_COLORS = {
-//   primary: {
-//     main: "#00e676",
-//     light: "#66ffa6",
-//     dark: "#00b248",
-//   },
-//   secondary: {
-//     main: "#ff7043",
-//     light: "#ffa270",
-//     dark: "#c63f17",
-//   },
-// };
-
 const themes = {
   light: createTheme({
     palette: {
       mode: "light",
-      // ...PALLETE_COLORS,
     },
     contentBackground: "#e3e3e3",
     borderColor: "#BABABA",
@@ -76,10 +62,6 @@ const themes = {
   dark: createTheme({
     palette: {
       mode: "dark",
-      // ...PALLETE_COLORS,
-      background: {
-        // default: "#000",
-      },
     },
     contentBackground: "#000",
     borderColor: "#666",
