@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.26.1",
     "classnames": "^2.3.1",
+    "express": "^4.18.1",
     "node-sass": "^7.0.1",
     "prop-types": "^15.8.0",
     "react": "^17.0.2",
@@ -29,7 +30,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "node staticServer.js"
   },
   "eslintConfig": {
     "extends": [
