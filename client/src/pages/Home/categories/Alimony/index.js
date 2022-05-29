@@ -53,7 +53,7 @@ const FORM_DATA = {
   }),
 };
 
-export function Alimony() {
+export default function Alimony() {
   const schema = useValidation(Object.keys(FORM_DATA));
   const [alimony, setAlimony] = useState(null);
   const { loading, request } = useFetch();

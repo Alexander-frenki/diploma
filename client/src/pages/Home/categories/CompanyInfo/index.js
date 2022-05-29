@@ -30,7 +30,7 @@ const FORM_DATA = {
   }),
 };
 
-export function CompanyInfo() {
+export default function CompanyInfo() {
   const schema = useValidation(Object.keys(FORM_DATA));
   const [companyListByName, setCompanyListByName] = useState(null);
   const [companyInfo, setCompanyInfo] = useState(null);

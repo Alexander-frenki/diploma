@@ -51,7 +51,7 @@ const FORM_DATA = {
   }),
 };
 
-export function CarInfo() {
+export default function CarInfo() {
   const schema = useValidation(Object.keys(FORM_DATA));
   const [carsByNumber, setCarsByNumber] = useState(null);
   const { cars } = useRecoilValue(userState);

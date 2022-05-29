@@ -4,16 +4,15 @@ import { Box, Typography } from "@mui/material";
 import Search from "@mui/icons-material/Search";
 import { Layout } from "../../components";
 import { CATEGORIES_PATHS } from "../../constants/categories";
-import {
-  Alimony,
-  CarFine,
-  CarInfo,
-  CompanyInfo,
-  CourtSearch,
-  FopInfo,
-  ForeignCarInfo,
-  Wanted,
-} from "./categories";
+
+const Alimony = React.lazy(() => import("./categories/Alimony"));
+const CarFine = React.lazy(() => import("./categories/CarFine"));
+const CarInfo = React.lazy(() => import("./categories/CarInfo"));
+const CompanyInfo = React.lazy(() => import("./categories/CompanyInfo"));
+const CourtSearch = React.lazy(() => import("./categories/CourtSearch"));
+const FopInfo = React.lazy(() => import("./categories/FopInfo"));
+const ForeignCarInfo = React.lazy(() => import("./categories/ForeignCarInfo"));
+const Wanted = React.lazy(() => import("./categories/Wanted"));
 
 export const CATEGORY_COMPONENTS = {
   [CATEGORIES_PATHS.carInfo]: CarInfo,
@@ -26,7 +25,7 @@ export const CATEGORY_COMPONENTS = {
   [CATEGORIES_PATHS.wanted]: Wanted,
 };
 
-export function Home() {
+export default function Home() {
   const { category } = useParams();
   const CategoryComponent = CATEGORY_COMPONENTS[`/${category}`];
   return (

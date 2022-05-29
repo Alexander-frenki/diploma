@@ -55,7 +55,7 @@ const FORM_DATA = {
   }),
 };
 
-export function UserSettings() {
+export default function UserSettings() {
   const schema = useValidation(Object.keys(FORM_DATA));
   const { request } = useFetch();
   const navigate = useNavigate();

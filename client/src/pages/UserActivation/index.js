@@ -6,7 +6,7 @@ import { Layout } from "../../components";
 import { userSelector } from "../../recoil";
 import { updateUserActivationLink } from "../../services";
 
-export function UserActivation() {
+export default function UserActivation() {
   const { request } = useFetch();
   const { id } = useRecoilValue(userSelector);
   const { removeAction, addAction } = useLoader();

@@ -27,7 +27,7 @@ const FORM_DATA = {
   }),
 };
 
-export function FopInfo() {
+export default function FopInfo() {
   const schema = useValidation(Object.keys(FORM_DATA));
   const [fopInfo, setFopInfo] = useState(null);
   const { loading, request } = useFetch();

@@ -47,7 +47,7 @@ const FORM_DATA = {
   }),
 };
 
-export function ForeignCarInfo() {
+export default function ForeignCarInfo() {
   const schema = useValidation(Object.keys(FORM_DATA));
   const [externalCarInfo, setExternalCarInfo] = useState(null);
   const { loading, request } = useFetch();

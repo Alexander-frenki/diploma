@@ -37,7 +37,7 @@ const FORM_DATA = {
   }),
 };
 
-export function CarFine() {
+export default function CarFine() {
   const schema = useValidation(Object.keys(FORM_DATA));
   const [carFines, setCarFines] = useState(null);
   const { loading, request } = useFetch();

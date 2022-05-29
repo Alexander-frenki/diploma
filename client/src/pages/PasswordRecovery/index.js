@@ -58,7 +58,7 @@ const FORM_DATA = {
   }),
 };
 
-export function PasswordRecovery() {
+export default function PasswordRecovery() {
   const { token } = useParams();
   const schema = useValidation(
     token ? Object.keys(FORM_DATA) : Object.keys(EMAIL_FORM_DATA)

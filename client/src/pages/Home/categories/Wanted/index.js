@@ -60,7 +60,7 @@ const FORM_DATA = {
   }),
 };
 
-export function Wanted() {
+export default function Wanted() {
   const schema = useValidation(Object.keys(FORM_DATA));
   const [wanted, setWanted] = useState(null);
   const { loading, request } = useFetch();

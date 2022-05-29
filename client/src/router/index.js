@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import PropTypes from "prop-types";
 import {
   matchPath,
   Route,
@@ -9,17 +10,16 @@ import {
 import { useSetRecoilState } from "recoil";
 import { userSelector } from "../recoil";
 import { useLoader } from "../hooks";
-import {
-  ActivateAccount,
-  Home,
-  PasswordChange,
-  PasswordRecovery,
-  SignIn,
-  SignUp,
-  UserActivation,
-  UserSettings,
-} from "../pages";
 import { checkAuth } from "../services";
+
+const ActivateAccount = React.lazy(() => import("../pages/ActivateAccount"));
+const Home = React.lazy(() => import("../pages/Home"));
+const PasswordChange = React.lazy(() => import("../pages/PasswordChange"));
+const PasswordRecovery = React.lazy(() => import("../pages/PasswordRecovery"));
+const SignIn = React.lazy(() => import("../pages/SignIn"));
+const SignUp = React.lazy(() => import("../pages/SignUp"));
+const UserActivation = React.lazy(() => import("../pages/UserActivation"));
+const UserSettings = React.lazy(() => import("../pages/UserSettings"));
 
 export const ROUTES = {
   home: {
@@ -79,6 +79,14 @@ export const ROUTES = {
   },
 };
 
+function LoadableComponent({ component: Component }) {
+  return (
+    <React.Suspense fallback="">
+      <Component />
+    </React.Suspense>
+  );
+}
+
 export function RouterSwitch() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -118,8 +126,16 @@ export function RouterSwitch() {
   return (
     <Routes>
       {Object.values(ROUTES).map(({ pathname, Component }) => (
-        <Route key={pathname} path={pathname} element={<Component />} />
+        <Route
+          key={pathname}
+          path={pathname}
+          element={<LoadableComponent component={Component} />}
+        />
       ))}
     </Routes>
   );
 }
+
+LoadableComponent.propTypes = {
+  component: PropTypes.object,
+};

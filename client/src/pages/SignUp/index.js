@@ -88,7 +88,7 @@ const FORM_DATA = {
   }),
 };
 
-export function SignUp() {
+export default function SignUp() {
   const navigate = useNavigate();
   const schema = useValidation(Object.keys(FORM_DATA));
   const setUser = useSetRecoilState(userSelector);

@@ -8,7 +8,7 @@ import { userSelector } from "../../recoil";
 import { activateUser } from "../../services";
 import { ROUTES } from "../../router";
 
-export function ActivateAccount() {
+export default function ActivateAccount() {
   const { isActivated } = useRecoilValue(userSelector);
   const isFirstMount = useRef(true);
   const { request } = useFetch();

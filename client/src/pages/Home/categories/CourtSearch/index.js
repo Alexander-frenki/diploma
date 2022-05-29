@@ -124,7 +124,7 @@ const courtStages = {
   cassation: "Касаційна",
 };
 
-export function CourtSearch() {
+export default function CourtSearch() {
   const schema = useValidation(Object.keys(FORM_DATA));
   const [expanded, setExpanded] = useState(false);
   const [docList, setDocList] = useState(null);

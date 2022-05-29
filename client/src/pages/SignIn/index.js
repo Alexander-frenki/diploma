@@ -50,7 +50,7 @@ const FORM_DATA = {
   }),
 };
 
-export function SignIn() {
+export default function SignIn() {
   const navigate = useNavigate();
   const schema = useValidation(Object.keys(FORM_DATA));
   const setUser = useSetRecoilState(userSelector);

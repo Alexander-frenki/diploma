@@ -47,11 +47,7 @@ async function parseBidcarsData(vin) {
   await page.click("#submit_search");
   await page.waitForTimeout(1000);
 
-  if (
-    ((await page.isVisible(".search-count")) &&
-      (await page.textContent(".search-count")) === "(0)") ||
-    (await page.textContent(".search-count")) === ""
-  ) {
+  if (await page.url().includes("https://bid.cars/ua/search/results")) {
     return null;
   }
 

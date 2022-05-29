@@ -57,7 +57,7 @@ const FORM_DATA = {
   }),
 };
 
-export function PasswordChange() {
+export default function PasswordChange() {
   const schema = useValidation(Object.keys(FORM_DATA));
   const { request } = useFetch();
   const navigate = useNavigate();
