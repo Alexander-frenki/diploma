@@ -1,6 +1,7 @@
 import { ApiError } from "../exceptions/apiError.js";
 
 function errorMiddleware(err, req, res, next) {
+  console.log(err);
   if (err?.code === 404) {
     res.sendStatus(404);
   }
