@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useFetch, useValidation } from "../../hooks";
+import { useFetch, useLoader, useValidation } from "../../hooks";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TextField } from "@mui/material";
 import { useRecoilValue } from "recoil";
@@ -60,6 +60,7 @@ const FORM_DATA = {
 export default function PasswordChange() {
   const schema = useValidation(Object.keys(FORM_DATA));
   const { request } = useFetch();
+  const { addAction, removeAction } = useLoader();
   const navigate = useNavigate();
   const { id } = useRecoilValue(userSelector);
 
@@ -72,9 +73,11 @@ export default function PasswordChange() {
   });
 
   async function onSubmit(formData) {
+    addAction("UPDATE_PASSWORD");
     await request({
       fn: () => updateUserPassword({ ...formData, id }),
       showSuccessAlert: true,
+      resetLoader: () => removeAction("UPDATE_PASSWORD"),
     });
   }
 

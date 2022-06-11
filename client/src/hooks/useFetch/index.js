@@ -15,6 +15,7 @@ export function useFetch() {
     warningMessage,
     errorMessage,
     resetLoader,
+    successCb,
   }) {
     setLoading(true);
     try {
@@ -28,6 +29,7 @@ export function useFetch() {
       if (shouldUserUpdate) {
         setUser(response);
       }
+      successCb && successCb();
       return response;
     } catch (error) {
       if (error.response.status === 404) {

@@ -42,7 +42,7 @@ const PASSWORD_SCHEMA = string()
   );
 const REPEAT_PASSWORD_SCHEMA = string()
   .required("Поле обов’язкове для заповнення")
-  .min(PASSWORD_MIN_LENGTH, "Пароль має містити не менше 8 символів")
+  .min(PASSWORD_MIN_LENGTH, "Пароль має містити не меньше 8 символів")
   .max(MAX_CHARS, `Пароль має містити не більше ${MAX_CHARS} символів`)
   .matches(
     PASSWORD_LOWERCASE_REGEX,

@@ -21,7 +21,7 @@ export function Loader() {
           alignItems: "center",
           justifyContent: "center",
           bgcolor: "background.default",
-          zIndex: 10,
+          zIndex: 100,
         }}
       >
         <CircularProgress />

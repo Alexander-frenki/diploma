@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useFetch, useValidation } from "../../hooks";
+import { useFetch, useLoader, useValidation } from "../../hooks";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, TextField } from "@mui/material";
 import { Layout, SearchForm } from "../../components";
@@ -59,6 +59,7 @@ export default function UserSettings() {
   const schema = useValidation(Object.keys(FORM_DATA));
   const { request } = useFetch();
   const navigate = useNavigate();
+  const { addAction, removeAction } = useLoader();
   const { firstName, lastName, email, id } = useRecoilValue(userSelector);
 
   const {
@@ -81,16 +82,17 @@ export default function UserSettings() {
   }, [firstName, lastName, email]);
 
   async function onSubmit(formData) {
+    addAction("UPDATE_USER");
     const isEmailChanged = email !== getValues().email;
     await request({
       fn: () => updateUser({ ...formData, id }),
       showSuccessAlert: true,
       shouldUserUpdate: true,
+      successCb: isEmailChanged
+        ? () => navigate(ROUTES.userActivation.pathname)
+        : null,
+      resetLoader: () => removeAction("UPDATE_USER"),
     });
-
-    if (isEmailChanged) {
-      navigate(ROUTES.userActivation.pathname);
-    }
   }
 
   return (
